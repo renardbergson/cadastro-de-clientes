@@ -1,0 +1,21 @@
+:host {
+  height: 100%;
+}
+
+nz-content {
+  height: 100%;
+}
+
+#inner-content {
+  background: #fff;
+  padding: 24px;
+  height: 100%;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+nz-content {
+  padding: 0 50px;
+}

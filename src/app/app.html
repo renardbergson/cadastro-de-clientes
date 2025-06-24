@@ -1,5 +1,28 @@
 <main class="main">
-  <h1>Hello World</h1>
+  <nz-layout id="layout">
+      <nz-header id="header">
+        <h1 id="logo">Cadastro de Clientes</h1>
+        <div id="spacer" style="flex: 1;"></div>
+        <nav id="navBar">
+          <ul nz-menu nzTheme="light" nzMode="horizontal">
+            <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+              <a routerLink="/consulta">
+                Consulta
+              </a>
+            </li>
+            <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+              <a routerLink="/cadastro">
+                Cadastro
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </nz-header>
+      
+      <app-conteudo-central></app-conteudo-central>
+      
+      <nz-footer id="footer">
+        ©2025 - Cadastro de Clientes - Renard Bergson
+      </nz-footer>
+    </nz-layout>
 </main>
-
-<router-outlet />
