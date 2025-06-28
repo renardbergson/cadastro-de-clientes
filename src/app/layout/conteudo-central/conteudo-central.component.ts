@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { RouterOutlet, Router } from '@angular/router';
+import { ClienteService } from '../../shared/services/cliente.service';
 
 @Component({
   selector: 'app-conteudo-central',
@@ -10,7 +11,10 @@ import { RouterOutlet, Router } from '@angular/router';
   styleUrl: './conteudo-central.component.css'
 })
 export class ConteudoCentralComponent {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    public clienteService: ClienteService
+  ) {}
 
   obterUrl() {
     return this.router.url;
