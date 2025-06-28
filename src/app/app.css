@@ -4,31 +4,4 @@
 
 #layout {
   height: 100vh;
-
-  & #header {
-    background-color: #fff;
-    display: flex;
-    height: 64px;
-  
-    & #logo {
-      cursor: default;
-      color: black;
-    }
-
-    & #navBar ul li {
-      height: 64px;
-
-      & a {
-        font-size: 12pt;
-      }
-    }
-  }
-
-  & #footer {
-    cursor: default;
-  }
-}
-
-nz-footer {
-  text-align: center;
 }

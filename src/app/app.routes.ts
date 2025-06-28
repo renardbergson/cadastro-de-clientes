@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { ConsultaComponent } from './components/consulta/consulta.component';
-import { CadastroComponent } from './components/cadastro/cadastro.component';
+import { ConsultaComponent } from './pages/consulta/consulta.component';
+import { CadastroComponent } from './pages/cadastro/cadastro.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'cadastro', pathMatch: 'full'},

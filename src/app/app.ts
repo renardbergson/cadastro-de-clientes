@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { RouterModule } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { ConteudoCentralComponent } from './components/conteudo-central/conteudo-central.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { ConteudoCentralComponent } from './layout/conteudo-central/conteudo-central.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   imports: [
-    RouterLink, 
     RouterModule,
     NzLayoutModule, 
     NzIconModule, 
     NzMenuModule,
-    ConteudoCentralComponent
+    HeaderComponent,
+    ConteudoCentralComponent,
+    FooterComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'

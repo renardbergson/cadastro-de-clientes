@@ -1,15 +1,15 @@
 :host {
-  height: 100%;
+  height: calc(100vh - 128px) !important;
 }
 
 nz-content {
-  height: 100%;
+  height: inherit;
 }
 
 #inner-content {
   background: #fff;
   padding: 24px;
-  height: 100%;
+  height: inherit;
 }
 
 nz-breadcrumb {

@@ -1,0 +1,20 @@
+#header {
+  background-color: #fff;
+  display: flex;
+  height: 64px;
+
+  & #logo {
+    cursor: default;
+    color: #1890ff;
+    font-size: 24pt;
+    letter-spacing: -1px;
+  }
+
+  & #navBar ul li {
+    height: 64px;
+
+    & a {
+      font-size: 12.5pt;
+    }
+  }
+}

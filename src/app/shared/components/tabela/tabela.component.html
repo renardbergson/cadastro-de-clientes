@@ -1,0 +1,72 @@
+<nz-input-group 
+  nzSearch 
+  [nzAddOnAfter]="suffixIconButton" 
+  id="search-bar"
+>
+  <input 
+    type="text" 
+    nzSize="large" 
+    nz-input placeholder="Pesquisar..." 
+  />
+  
+  <ng-template #suffixIconButton>
+    <button type="submit" nz-button nzType="primary" nzSearch nzSize="large">
+      <nz-icon nzType="search" />
+    </button>
+  </ng-template>
+</nz-input-group>
+
+<nz-table 
+  #tabelaClientes 
+  [nzData]="listaClientes" 
+  [nzNoResult]="noDataTemplate"
+  [nzPageSize]="6"
+  nzPaginationPosition="top"
+>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Data de Nascimento</th>
+      <th>Cidade</th>
+      <th>Estado</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cliente of tabelaClientes.data">
+      <td>{{ cliente.nome }}</td>
+      <td>{{ cliente.email }}</td>
+      <td>{{ cliente.dataNascimento }}</td>
+      <td>{{ cliente.cidade }}</td>
+      <td>{{ cliente.estado }}</td>
+      <td class="actions">
+        <a>
+          Editar
+          <nz-icon nzType="edit" nzTheme="outline" />
+        </a>
+        
+        <nz-divider nzType="vertical" />
+        
+        <a>
+          Excluir
+          <nz-icon nzType="delete" nzTheme="outline" />
+        </a>
+
+        <nz-divider nzType="vertical" />
+
+        <a>
+          Confirmar
+          <nz-icon nzType="question" nzTheme="outline" />
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #noDataTemplate>
+  <div style="text-align: center; padding: 20px;">
+    <nz-empty [nzNotFoundContent]="null"></nz-empty>
+    <p>Ocorreu um erro ou não há clientes cadastrados</p>
+  </div>
+</ng-template>

@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 
 @Component({
   selector: 'app-conteudo-central',
@@ -10,5 +10,9 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './conteudo-central.component.css'
 })
 export class ConteudoCentralComponent {
-  
+  constructor(private router: Router) {}
+
+  obterUrl() {
+    return this.router.url;
+  }
 }

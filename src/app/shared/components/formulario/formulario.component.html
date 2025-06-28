@@ -1,0 +1,73 @@
+<div class="formulario-container">
+  <h2>Dados Pessoais</h2>
+  
+  <div class="input-container">
+    <nz-input-group [nzPrefix]="userIcon">
+      <input type="text" nz-input placeholder="Nome Completo" />
+    </nz-input-group>
+
+    <ng-template #userIcon>
+      <nz-icon nzType="user" nzTheme="outline" />
+    </ng-template>
+  </div>
+
+  <div class="input-container">
+    <nz-input-group [nzPrefix]="mailIcon">
+      <input type="email" nz-input placeholder="E-mail" />
+    </nz-input-group>
+
+    <ng-template #mailIcon>
+      <nz-icon nzType="mail" nzTheme="outline" />
+    </ng-template>
+  </div>
+
+  <div class="input-container">
+    <nz-input-group [nzPrefix]="cpfIcon">
+      <input type="email" nz-input placeholder="CPF" />
+    </nz-input-group>
+
+    <ng-template #cpfIcon>
+      <nz-icon nzType="idcard" nzTheme="outline" />
+    </ng-template>
+  </div>
+
+  <div class="input-container date">
+    <nz-input-group [nzPrefix]="dateIcon">
+      <input type="email" nz-input placeholder="Data de Nascimento" />
+    </nz-input-group>
+
+    <ng-template #dateIcon>
+      <nz-icon nzType="calendar" nzTheme="outline" />
+    </ng-template>
+  </div>
+
+  <div class="input-container location">
+    <nz-input-group [nzPrefix]="locationIcon">      
+      <nz-select ngModel="lucy" nzSize="large" nzPlaceHolder="UF">
+        <nz-option nzValue="Paraíba" nzLabel="Paraíba" />
+      </nz-select>
+
+      <ng-template #locationIcon>
+        <nz-icon nzType="environment" nzTheme="outline" />
+      </ng-template>
+    </nz-input-group>
+  </div>
+
+  <div class="input-container location">
+    <nz-input-group [nzPrefix]="cityIcon">      
+      <nz-select ngModel="lucy" nzSize="large" nzPlaceHolder="Município">
+        <nz-option nzValue="Santa Luzia" nzLabel="Santa Luzia" />
+      </nz-select>
+
+      <ng-template #cityIcon>
+        <nz-icon nzType="verified" nzTheme="outline" />
+      </ng-template>
+    </nz-input-group>
+  </div>
+
+  <div class="action-section">
+    <button nz-button nzType="primary" nzSize="large">Salvar</button>
+    <button nz-button nzType="primary" nzSize="large">Atualizar</button>
+    <button nz-button nzType="primary" nzSize="large" nzDanger>Limpar</button>
+  </div>
+</div>
