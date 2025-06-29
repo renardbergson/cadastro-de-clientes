@@ -1,9 +1,15 @@
-<div class="formulario-container">
+<form class="formulario-container" #formCadastro="ngForm" (ngSubmit)="submit()">
   <h2>Dados Pessoais</h2>
   
   <div class="input-container">
     <nz-input-group [nzPrefix]="userIcon">
-      <input type="text" nz-input placeholder="Nome Completo" />
+      <input 
+        name="nome" 
+        type="text" 
+        nz-input 
+        placeholder="Nome Completo" 
+        [(ngModel)]="cliente.nome"
+      />
     </nz-input-group>
 
     <ng-template #userIcon>
@@ -13,7 +19,12 @@
 
   <div class="input-container">
     <nz-input-group [nzPrefix]="mailIcon">
-      <input type="email" nz-input placeholder="E-mail" />
+      <input 
+        name="email" 
+        type="email" 
+        nz-input placeholder="E-mail" 
+        [(ngModel)]="cliente.email"
+      />
     </nz-input-group>
 
     <ng-template #mailIcon>
@@ -23,7 +34,13 @@
 
   <div class="input-container">
     <nz-input-group [nzPrefix]="cpfIcon">
-      <input type="email" nz-input placeholder="CPF" />
+      <input 
+        name="cpf" 
+        type="text" 
+        nz-input 
+        placeholder="CPF" 
+        [(ngModel)]="cliente.cpf"
+      />
     </nz-input-group>
 
     <ng-template #cpfIcon>
@@ -33,7 +50,12 @@
 
   <div class="input-container date">
     <nz-input-group [nzPrefix]="dateIcon">
-      <input type="email" nz-input placeholder="Data de Nascimento" />
+      <input 
+        name="dataNascimento" 
+        type="text" 
+        nz-input placeholder="Data de Nascimento" 
+        [(ngModel)]="cliente.dataNascimento"
+      />
     </nz-input-group>
 
     <ng-template #dateIcon>
@@ -43,7 +65,13 @@
 
   <div class="input-container location">
     <nz-input-group [nzPrefix]="locationIcon">      
-      <nz-select ngModel="lucy" nzSize="large" nzPlaceHolder="UF">
+      <nz-select 
+        name="estado" 
+        ngModel="lucy" 
+        nzSize="large" 
+        nzPlaceHolder="UF"
+        [(ngModel)]="cliente.estado"
+      >
         <nz-option nzValue="Paraíba" nzLabel="Paraíba" />
       </nz-select>
 
@@ -55,7 +83,13 @@
 
   <div class="input-container location">
     <nz-input-group [nzPrefix]="cityIcon">      
-      <nz-select ngModel="lucy" nzSize="large" nzPlaceHolder="Município">
+      <nz-select 
+        name="cidade" 
+        ngModel="lucy" 
+        nzSize="large" 
+        nzPlaceHolder="Município"
+        [(ngModel)]="cliente.cidade"
+      >
         <nz-option nzValue="Santa Luzia" nzLabel="Santa Luzia" />
       </nz-select>
 
@@ -66,8 +100,8 @@
   </div>
 
   <div class="action-section">
-    <button nz-button nzType="primary" nzSize="large">Salvar</button>
+    <button type="submit" nz-button nzType="primary" nzSize="large">Salvar</button>
     <button nz-button nzType="primary" nzSize="large">Atualizar</button>
     <button nz-button nzType="primary" nzSize="large" nzDanger>Limpar</button>
   </div>
-</div>
+</form>

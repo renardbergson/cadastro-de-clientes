@@ -30,11 +30,17 @@ export class ClienteService {
     const dados: string | null = localStorage.getItem('clientes');
     
     if(dados && this.isCliente(JSON.parse(dados))) {
-      this.clientes = JSON.parse(dados);
+      this.clientes = await JSON.parse(dados);
       return;
     } 
 
     await this.setClientes();
+  }
+  
+  private async setClientes() {
+    const data = await firstValueFrom(this.http.get<Cliente[]>('assets/data/clientes.json'))
+    localStorage.setItem('clientes', JSON.stringify(data));
+    this.clientes = data;
   }
 
   async getClientes(): Promise<Cliente[]> {
@@ -42,13 +48,14 @@ export class ClienteService {
     return this.clientes;
   }
 
-  private async setClientes() {
-    const data = await firstValueFrom(this.http.get<Cliente[]>('assets/data/clientes.json'))
-    localStorage.setItem('clientes', JSON.stringify(data));
-    this.clientes = data;
+  async salvarCliente(cliente: Cliente): Promise<boolean> {
+    const clientes = await this.getClientes();
+    clientes.push(cliente);
+    localStorage.setItem('clientes', JSON.stringify(clientes));
+    return true;
   }
 
-  getTotalClientes(): number {
+  getTotalClientes() {
     return this.clientes.length;
   }
 }
