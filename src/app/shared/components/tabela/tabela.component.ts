@@ -25,10 +25,25 @@ import { ClienteService } from '../../services/cliente.service';
 })
 export class TabelaComponent implements OnInit {
   listaClientes: Cliente[] = []
+  clienteExcluir: Cliente | null = null;
 
   constructor(private clienteService: ClienteService) {}
 
   async ngOnInit(): Promise<void> {
     this.listaClientes = await this.clienteService.getClientes();
+  }
+
+  toDelete(cliente: Cliente): void {
+    this.clienteExcluir = cliente;
+    setTimeout(() => {
+      this.clienteExcluir = null;
+    }, 5000);
+  }
+
+  async delete() {
+    if(this.clienteExcluir) {
+      const novaListaClientes = await this.clienteService.delete(this.clienteExcluir);
+      this.listaClientes = novaListaClientes;
+    }
   }
 }

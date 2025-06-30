@@ -47,18 +47,18 @@
         </a>
         
         <nz-divider nzType="vertical" />
-        
-        <a>
-          Excluir
-          <nz-icon nzType="delete" nzTheme="outline" />
-        </a>
 
-        <nz-divider nzType="vertical" />
-
-        <a>
-          Confirmar
-          <nz-icon nzType="question" nzTheme="outline" />
-        </a>
+        @if(clienteExcluir?.id === cliente.id) {
+          <a (click)="delete()">
+            Confirmar
+            <nz-icon nzType="question" nzTheme="outline" />
+          </a>
+        } @else {
+          <a (click)="toDelete(cliente)">
+            Excluir
+            <nz-icon nzType="delete" nzTheme="outline" />
+          </a>
+        }
       </td>
     </tr>
   </tbody>

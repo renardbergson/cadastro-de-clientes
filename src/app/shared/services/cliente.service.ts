@@ -48,6 +48,10 @@ export class ClienteService {
     return this.clientes;
   }
 
+  getTotalClientes() {
+    return this.clientes.length;
+  }
+
   async salvarCliente(cliente: Cliente): Promise<boolean> {
     const clientes = await this.getClientes();
     clientes.push(cliente);
@@ -55,7 +59,13 @@ export class ClienteService {
     return true;
   }
 
-  getTotalClientes() {
-    return this.clientes.length;
+  async delete(cliente: Cliente): Promise<Cliente[]> {
+    console.log(cliente);
+    const clientes = await this.getClientes();
+    const novaListaClientes = clientes.filter(c => {
+      return c.id !== cliente.id;
+    })
+    localStorage.setItem('clientes', JSON.stringify(novaListaClientes));
+    return novaListaClientes;
   }
 }

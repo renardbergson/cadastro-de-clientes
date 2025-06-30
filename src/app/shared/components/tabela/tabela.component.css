@@ -5,3 +5,7 @@ nz-input-group input {
 nz-divider {
   margin: 0 15px;
 } 
+
+.actions {
+  width: 22%;
+}
