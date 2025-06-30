@@ -41,7 +41,7 @@
       <td>{{ cliente.cidade }}</td>
       <td>{{ cliente.estado }}</td>
       <td class="actions">
-        <a>
+        <a (click)="cliente.id ? toEdit(cliente.id) : null">
           Editar
           <nz-icon nzType="edit" nzTheme="outline" />
         </a>

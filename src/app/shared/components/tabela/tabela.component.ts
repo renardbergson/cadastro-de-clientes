@@ -8,6 +8,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { Cliente } from '../../models/cliente.model';
 import { ClienteService } from '../../services/cliente.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tabela',
@@ -27,10 +28,18 @@ export class TabelaComponent implements OnInit {
   listaClientes: Cliente[] = []
   clienteExcluir: Cliente | null = null;
 
-  constructor(private clienteService: ClienteService) {}
+  constructor(
+    private clienteService: ClienteService,
+    private router: Router
+  ) {}
 
   async ngOnInit(): Promise<void> {
     this.listaClientes = await this.clienteService.getClientes();
+  }
+
+  toEdit(id: string): void {
+    this.router.navigate(['/cadastro'], { queryParams: { "id": id } });
+    // console.log(id);
   }
 
   toDelete(cliente: Cliente): void {
@@ -42,7 +51,7 @@ export class TabelaComponent implements OnInit {
 
   async delete() {
     if(this.clienteExcluir) {
-      const novaListaClientes = await this.clienteService.delete(this.clienteExcluir);
+      const novaListaClientes = await this.clienteService.excluir(this.clienteExcluir);
       this.listaClientes = novaListaClientes;
     }
   }

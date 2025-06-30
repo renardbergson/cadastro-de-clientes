@@ -37,8 +37,8 @@ export class ClienteService {
     await this.setClientes();
   }
   
-  private async setClientes() {
-    const data = await firstValueFrom(this.http.get<Cliente[]>('assets/data/clientes.json'))
+  private async setClientes(): Promise<void> {
+    const data: Cliente[] = await firstValueFrom(this.http.get<Cliente[]>('assets/data/clientes.json'))
     localStorage.setItem('clientes', JSON.stringify(data));
     this.clientes = data;
   }
@@ -52,17 +52,34 @@ export class ClienteService {
     return this.clientes.length;
   }
 
-  async salvarCliente(cliente: Cliente): Promise<boolean> {
-    const clientes = await this.getClientes();
+  async buscar(id: string): Promise<Cliente | undefined> {
+    const clientes: Cliente[] = await this.getClientes();
+    const clienteEditar: Cliente | undefined = clientes.find(cliente => cliente.id === id);
+    return clienteEditar;
+  }
+
+  async atualizar(cliente: Cliente): Promise<boolean> {
+    const clientes: Cliente[] = await this.getClientes();
+    for (const c of clientes) {
+      if(c.id === cliente.id) {
+        Object.assign(c, cliente);
+        localStorage.setItem('clientes', JSON.stringify(clientes));
+        return true;
+      }
+    }
+    return false;
+  }
+
+  async salvar(cliente: Cliente): Promise<boolean> {
+    const clientes: Cliente[] = await this.getClientes();
     clientes.push(cliente);
     localStorage.setItem('clientes', JSON.stringify(clientes));
     return true;
   }
 
-  async delete(cliente: Cliente): Promise<Cliente[]> {
-    console.log(cliente);
-    const clientes = await this.getClientes();
-    const novaListaClientes = clientes.filter(c => {
+  async excluir(cliente: Cliente): Promise<Cliente[]> {
+    const clientes: Cliente[] = await this.getClientes();
+    const novaListaClientes: Cliente[] = clientes.filter(c => {
       return c.id !== cliente.id;
     })
     localStorage.setItem('clientes', JSON.stringify(novaListaClientes));

@@ -100,8 +100,11 @@
   </div>
 
   <div class="action-section">
-    <button type="submit" nz-button nzType="primary" nzSize="large">Salvar</button>
-    <button nz-button nzType="primary" nzSize="large">Atualizar</button>
+    @if(atualizandoCliente) {
+      <button type="submit" nz-button nzType="primary" nzSize="large">Atualizar</button>
+    } @else {
+      <button type="submit" nz-button nzType="primary" nzSize="large">Salvar</button>
+    }
     <button nz-button nzType="primary" nzSize="large" nzDanger>Limpar</button>
   </div>
 </form>
