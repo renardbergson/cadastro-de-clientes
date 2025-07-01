@@ -13,7 +13,8 @@ import {
   SearchOutline, 
   DeleteOutline, 
   EditOutline, 
-  QuestionOutline 
+  QuestionOutline,
+  SettingOutline
 } from '@ant-design/icons-angular/icons';
 
 import { routes } from './app.routes';
@@ -34,7 +35,8 @@ export const appConfig: ApplicationConfig = {
       SearchOutline, 
       DeleteOutline, 
       EditOutline, 
-      QuestionOutline
+      QuestionOutline,  
+      SettingOutline
     ])
   ]
 };

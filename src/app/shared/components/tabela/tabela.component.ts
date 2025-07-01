@@ -17,6 +17,12 @@ const FeedbackExcluir = {
   duracao: {nzDuration: 5000},
 }
 
+const FeedbackRestaurar = {
+  sucesso: "Os clientes base foram restaurados!",
+  erro: "Ocorreu um erro ao restaurar os clientes!",
+  duracao: {nzDuration: 5000},
+}
+
 @Component({
   selector: 'app-tabela',
   imports: [
@@ -43,6 +49,11 @@ export class TabelaComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.listaClientes = await this.clienteService.getClientes();
+    this.clienteService.clientesRestaurados$.subscribe(async () => {
+      this.listaClientes = await this.clienteService.getClientes();
+      this.feedback.success(FeedbackRestaurar.sucesso, FeedbackRestaurar.duracao);
+      // Esta função é chamada toda vez que o observable é notificado
+    })
   }
 
   toEdit(id: string): void {

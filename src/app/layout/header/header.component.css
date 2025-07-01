@@ -13,6 +13,10 @@
   & #navBar ul li {
     height: 64px;
 
+    & nz-icon {
+      font-size: 12pt;
+    }
+
     & a {
       font-size: 12.5pt;
     }

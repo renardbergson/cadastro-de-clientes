@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Cliente } from '../models/cliente.model';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,9 @@ export class ClienteService {
   private clientes: Cliente[] = [];
 
   constructor(private http: HttpClient) {}
+  
+  clientesRestaurados$ = new Subject<void>();
+  // Observable para notificar a restauração dos clientes
 
   private isCliente(dados: unknown): dados is Cliente[] {
     return Array.isArray(dados) &&
@@ -84,5 +88,12 @@ export class ClienteService {
     })
     localStorage.setItem('clientes', JSON.stringify(novaListaClientes));
     return novaListaClientes;
+  }
+
+  async restaurarClientes() {
+    localStorage.removeItem('clientes');
+    await this.setClientes();
+    const restaurou = this.clientesRestaurados$.next(); 
+    // Notifica todos os componentes que estão inscritos no observable
   }
 }

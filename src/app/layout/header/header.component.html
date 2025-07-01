@@ -13,6 +13,26 @@
           Cadastro
         </a>
       </li>
+
+      <li 
+        nz-submenu 
+        nzIcon="setting" 
+        nzPlacement="topLeft"
+      >
+        <ul>
+          <li nzMatchRouter="true" nz-menu-item>
+            <span (click)="restaure()">Restaurar clientes</span>
+          </li>
+          <li nzMatchRouter="true" nz-menu-item>
+            <a 
+              href="https://github.com/renardbergson" 
+              target="_blank"
+            >
+              Desenvolvedor
+            </a>
+          </li>
+        </ul>
+      </li>
     </ul>
   </nav>
 </nz-header>
