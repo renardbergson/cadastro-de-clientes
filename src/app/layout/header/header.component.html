@@ -14,14 +14,16 @@
         </a>
       </li>
 
+      <nz-divider nzType="vertical" />
+
       <li 
         nz-submenu 
         nzIcon="setting" 
         nzPlacement="topLeft"
       >
         <ul>
-          <li nzMatchRouter="true" nz-menu-item>
-            <span (click)="restaure()">Restaurar clientes</span>
+          <li (click)="restaure()" nzMatchRouter="true" nz-menu-item>
+            <span>Restaurar clientes</span>
           </li>
           <li nzMatchRouter="true" nz-menu-item>
             <a 

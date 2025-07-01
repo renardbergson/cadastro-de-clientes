@@ -4,10 +4,11 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { RouterLink, RouterModule } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ClienteService } from '../../shared/services/cliente.service';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @Component({
   selector: 'app-header',
-  imports: [NzLayoutModule, NzMenuModule, RouterLink, RouterModule, NzIconModule],
+  imports: [NzLayoutModule, NzMenuModule, RouterLink, RouterModule, NzIconModule, NzDividerModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

@@ -14,6 +14,8 @@ export class ClienteService {
   
   clientesRestaurados$ = new Subject<void>();
   // Observable para notificar a restauração dos clientes
+  quantidadeClientesMudou$ = new Subject<void>();
+  // Observable para notificar a mudança na quantidade de clientes
 
   private isCliente(dados: unknown): dados is Cliente[] {
     return Array.isArray(dados) &&
@@ -35,6 +37,7 @@ export class ClienteService {
     
     if(dados && this.isCliente(JSON.parse(dados))) {
       this.clientes = await JSON.parse(dados);
+      this.quantidadeClientesMudou$.next();
       return;
     } 
 
@@ -45,15 +48,12 @@ export class ClienteService {
     const data: Cliente[] = await firstValueFrom(this.http.get<Cliente[]>('assets/data/clientes.json'))
     localStorage.setItem('clientes', JSON.stringify(data));
     this.clientes = data;
+    this.quantidadeClientesMudou$.next();
   }
 
   async getClientes(): Promise<Cliente[]> {
     await this.handleDatabase();
     return this.clientes;
-  }
-
-  getTotalClientes() {
-    return this.clientes.length;
   }
 
   async buscar(id: string): Promise<Cliente | undefined> {
@@ -78,6 +78,8 @@ export class ClienteService {
     const clientes: Cliente[] = await this.getClientes();
     clientes.push(cliente);
     localStorage.setItem('clientes', JSON.stringify(clientes));
+    this.clientes = clientes;
+    this.quantidadeClientesMudou$.next();
     return true;
   }
 
@@ -87,13 +89,20 @@ export class ClienteService {
       return c.id !== cliente.id;
     })
     localStorage.setItem('clientes', JSON.stringify(novaListaClientes));
+    this.clientes = novaListaClientes;
+    this.quantidadeClientesMudou$.next();
     return novaListaClientes;
   }
 
   async restaurarClientes() {
     localStorage.removeItem('clientes');
     await this.setClientes();
-    const restaurou = this.clientesRestaurados$.next(); 
+    this.clientesRestaurados$.next(); 
+    this.quantidadeClientesMudou$.next();
     // Notifica todos os componentes que estão inscritos no observable
+  }
+
+  getTotalClientes() {
+    return this.clientes.length;
   }
 }

@@ -51,8 +51,8 @@ export class TabelaComponent implements OnInit {
     this.listaClientes = await this.clienteService.getClientes();
     this.clienteService.clientesRestaurados$.subscribe(async () => {
       this.listaClientes = await this.clienteService.getClientes();
-      this.feedback.success(FeedbackRestaurar.sucesso, FeedbackRestaurar.duracao);
       // Esta função é chamada toda vez que o observable é notificado
+      this.feedback.success(FeedbackRestaurar.sucesso, FeedbackRestaurar.duracao);
     })
   }
 

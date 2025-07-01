@@ -4,11 +4,11 @@
       @if(obterUrl() === '/consulta') {
         Total de clientes cadastrados: 
         <span id="total-clientes">
-          --
+          {{ totalClientes }}
         </span>
       }
       @if(obterUrl() === '/cadastro') {
-        Preencha os campos abaixo
+        Preencha os campos abaixo! *
       }
     </nz-breadcrumb-item>
   </nz-breadcrumb>

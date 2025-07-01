@@ -11,7 +11,7 @@ import { ClienteService } from '../../shared/services/cliente.service';
   styleUrl: './conteudo-central.component.css'
 })
 export class ConteudoCentralComponent implements OnInit {
-  totalClientes: number = 0;
+  totalClientes?: number;
 
   constructor(
     private router: Router,
@@ -19,7 +19,9 @@ export class ConteudoCentralComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.totalClientes = this.clienteService.getTotalClientes();
+    this.clienteService.quantidadeClientesMudou$.subscribe(() => {
+      this.totalClientes = this.clienteService.getTotalClientes();
+    })
   }
 
   obterUrl() {
