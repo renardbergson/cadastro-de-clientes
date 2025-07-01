@@ -9,6 +9,13 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { Cliente } from '../../models/cliente.model';
 import { ClienteService } from '../../services/cliente.service';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
+
+const FeedbackExcluir = {
+  sucesso: "Cliente removido com sucesso!",
+  erro: "Ocorreu um erro ao remover o cliente!",
+  duracao: {nzDuration: 5000},
+}
 
 @Component({
   selector: 'app-tabela',
@@ -30,7 +37,8 @@ export class TabelaComponent implements OnInit {
 
   constructor(
     private clienteService: ClienteService,
-    private router: Router
+    private router: Router,
+    private feedback: NzMessageService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -39,7 +47,6 @@ export class TabelaComponent implements OnInit {
 
   toEdit(id: string): void {
     this.router.navigate(['/cadastro'], { queryParams: { "id": id } });
-    // console.log(id);
   }
 
   toDelete(cliente: Cliente): void {
@@ -53,6 +60,9 @@ export class TabelaComponent implements OnInit {
     if(this.clienteExcluir) {
       const novaListaClientes = await this.clienteService.excluir(this.clienteExcluir);
       this.listaClientes = novaListaClientes;
+      this.feedback.success(FeedbackExcluir.sucesso, FeedbackExcluir.duracao);
+    } else {
+      this.feedback.error(FeedbackExcluir.erro, FeedbackExcluir.duracao);
     }
   }
 }
