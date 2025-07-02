@@ -8,6 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { Cliente } from '../../models/cliente.model';
 import { ClienteService } from '../../services/cliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BrasilApiService } from '../../services/brasil-api.service';
+import { Estado } from '../../models/estado.model';
+import { Municipio } from '../../models/municipio.model';
 
 const FeedbackAtualizar = {
   sucesso: "Cliente atualizado com sucesso!",
@@ -36,12 +39,15 @@ const FeedbackAtualizar = {
 export class FormularioComponent implements OnInit {
   cliente: Cliente = Cliente.novoCliente();
   atualizandoCliente: boolean = false;
+  estados: Estado[] = [];
+  municipios: Municipio[] = [];
 
   constructor(
     private clienteService: ClienteService,
     private route: ActivatedRoute,
     private router: Router,
-    private feedback: NzMessageService
+    private feedback: NzMessageService,
+    private brasilApi: BrasilApiService
   ) {}
 
   ngOnInit() {
@@ -52,9 +58,12 @@ export class FormularioComponent implements OnInit {
         if(clienteEditar) {
           this.atualizandoCliente = true;
           this.cliente = clienteEditar;
+          if(this.cliente.estado) this.listarMunicipios(this.cliente.estado);
         }
       };
     })
+
+    this.listarUFs();
   }
 
   async submit() {
@@ -76,5 +85,19 @@ export class FormularioComponent implements OnInit {
         this.feedback.error(FeedbackSalvar.erro, FeedbackSalvar.duracao);
       }
     }
+  }
+
+  listarUFs(): void {
+    this.brasilApi.listarUFs().subscribe({
+      next: listaEstados => {this.estados = listaEstados},
+      error: error => console.error(error),
+    })
+  }
+
+  listarMunicipios(uf: string) {
+    this.brasilApi.listarMunicipios(uf).subscribe({
+      next: listaMunicipios => {this.municipios = listaMunicipios},
+      error: error => console.error(error),
+    });
   }
 }

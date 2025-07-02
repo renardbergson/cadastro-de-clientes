@@ -71,8 +71,11 @@
         nzSize="large" 
         nzPlaceHolder="UF"
         [(ngModel)]="cliente.estado"
+        (ngModelChange)="listarMunicipios($event)"
       >
-        <nz-option nzValue="Paraíba" nzLabel="Paraíba" />
+        @for(estado of estados; track estado.sigla) {
+          <nz-option nzValue="{{ estado.sigla }}" nzLabel="{{ estado.nome }}" />
+        }
       </nz-select>
 
       <ng-template #locationIcon>
@@ -84,13 +87,16 @@
   <div class="input-container location">
     <nz-input-group [nzPrefix]="cityIcon">      
       <nz-select 
-        name="cidade" 
-        ngModel="lucy" 
-        nzSize="large" 
-        nzPlaceHolder="Município"
-        [(ngModel)]="cliente.cidade"
+      name="cidade" 
+      ngModel="lucy" 
+      nzSize="large" 
+      nzPlaceHolder="Município"
+      [(ngModel)]="cliente.cidade"
+      nzDisabled="{{ !cliente.estado }}"
       >
-        <nz-option nzValue="Santa Luzia" nzLabel="Santa Luzia" />
+        @for(municipio of municipios; track municipio.codigo_ibge) {
+          <nz-option nzValue="{{ municipio.nome }}" nzLabel="{{ municipio.nome }}" />
+        }
       </nz-select>
 
       <ng-template #cityIcon>

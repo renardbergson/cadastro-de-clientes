@@ -5,8 +5,8 @@
     "cpf": "123.456.789-00",
     "email": "renard.contato@gmail.com",
     "dataNascimento": "01/08/1992",
-    "cidade": "Santa Luzia",
-    "estado": "Paraíba"
+    "cidade": "SANTA LUZIA",
+    "estado": "PB"
   },
   {
     "id": "2",
@@ -14,8 +14,8 @@
     "cpf": "987.654.321-00",
     "email": "maria.silva@hotmail.com",
     "dataNascimento": "15/03/1985",
-    "cidade": "João Pessoa",
-    "estado": "Paraíba"
+    "cidade": "RECIFE",
+    "estado": "PE"
   },
   {
     "id": "3",
@@ -23,8 +23,8 @@
     "cpf": "456.789.123-00",
     "email": "joao.santos@yahoo.com",
     "dataNascimento": "22/11/1990",
-    "cidade": "Campina Grande",
-    "estado": "Paraíba"
+    "cidade": "NATAL",
+    "estado": "RN"
   },
   {
     "id": "4",
@@ -32,8 +32,8 @@
     "cpf": "789.123.456-00",
     "email": "ana.costa@gmail.com",
     "dataNascimento": "08/07/1988",
-    "cidade": "Patos",
-    "estado": "Paraíba"
+    "cidade": "FORTALEZA",
+    "estado": "CE"
   },
   {
     "id": "5",
@@ -41,8 +41,8 @@
     "cpf": "321.654.987-00",
     "email": "pedro.oliveira@outlook.com",
     "dataNascimento": "12/04/1995",
-    "cidade": "Sousa",
-    "estado": "Paraíba"
+    "cidade": "SALVADOR",
+    "estado": "BA"
   },
   {
     "id": "6",
@@ -50,8 +50,8 @@
     "cpf": "654.987.321-00",
     "email": "lucia.ferreira@gmail.com",
     "dataNascimento": "30/09/1983",
-    "cidade": "Cajazeiras",
-    "estado": "Paraíba"
+    "cidade": "MACEIÓ",
+    "estado": "AL"
   },
   {
     "id": "7",
@@ -59,8 +59,8 @@
     "cpf": "147.258.369-00",
     "email": "carlos.lima@hotmail.com",
     "dataNascimento": "18/12/1991",
-    "cidade": "Guarabira",
-    "estado": "Paraíba"
+    "cidade": "ARACAJU",
+    "estado": "SE"
   },
   {
     "id": "8",
@@ -68,8 +68,8 @@
     "cpf": "258.369.147-00",
     "email": "fernanda.rocha@yahoo.com",
     "dataNascimento": "25/06/1987",
-    "cidade": "Pombal",
-    "estado": "Paraíba"
+    "cidade": "TERESINA",
+    "estado": "PI"
   },
   {
     "id": "9",
@@ -77,8 +77,8 @@
     "cpf": "369.147.258-00",
     "email": "roberto.alves@gmail.com",
     "dataNascimento": "03/02/1993",
-    "cidade": "Mamanguape",
-    "estado": "Paraíba"
+    "cidade": "SÃO LUÍS",
+    "estado": "MA"
   },
   {
     "id": "10",
@@ -86,7 +86,7 @@
     "cpf": "951.753.852-00",
     "email": "juliana.martins@outlook.com",
     "dataNascimento": "14/10/1989",
-    "cidade": "Itabaiana",
-    "estado": "Paraíba"
+    "cidade": "BELÉM",
+    "estado": "PA"
   }
 ]
