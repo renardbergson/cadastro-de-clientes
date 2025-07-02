@@ -56,10 +56,18 @@ export class ClienteService {
     return this.clientes;
   }
 
-  async buscar(id: string): Promise<Cliente | undefined> {
+  async buscarPorID(id: string): Promise<Cliente | undefined> {
     const clientes: Cliente[] = await this.getClientes();
     const clienteEditar: Cliente | undefined = clientes.find(cliente => cliente.id === id);
     return clienteEditar;
+  }
+
+  async buscarPorNome(nome: string): Promise<Cliente[] | []> {
+    const clientes: Cliente[] = await this.getClientes();
+    const resultado: Cliente[] | [] = clientes.filter(c => 
+      c.nome?.toLocaleLowerCase().includes(nome.toLocaleLowerCase())
+    )
+    return resultado;
   }
 
   async atualizar(cliente: Cliente): Promise<boolean> {

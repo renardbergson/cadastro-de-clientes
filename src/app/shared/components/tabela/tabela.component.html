@@ -1,20 +1,24 @@
-<nz-input-group 
-  nzSearch 
-  [nzAddOnAfter]="suffixIconButton" 
-  id="search-bar"
->
-  <input 
-    type="text" 
-    nzSize="large" 
-    nz-input placeholder="Pesquisar..." 
-  />
-  
-  <ng-template #suffixIconButton>
-    <button type="submit" nz-button nzType="primary" nzSearch nzSize="large">
-      <nz-icon nzType="search" />
-    </button>
-  </ng-template>
-</nz-input-group>
+<form #formPesquisa="ngForm" (ngSubmit)="toSearch()">
+  <nz-input-group 
+    nzSearch 
+    [nzAddOnAfter]="suffixIconButton" 
+    id="search-bar"
+  >
+    <input 
+      type="text" 
+      nzSize="large" 
+      nz-input placeholder="Pesquisar por nome. Ex.: Ana" 
+      name="nome"
+      [(ngModel)]="nomeBuscar"
+    />
+    
+    <ng-template #suffixIconButton>
+      <button type="submit" nz-button nzType="primary" nzSearch nzSize="large">
+        <nz-icon nzType="search" />
+      </button>
+    </ng-template>
+  </nz-input-group>
+</form>
 
 <nz-table 
   #tabelaClientes 
@@ -67,6 +71,6 @@
 <ng-template #noDataTemplate>
   <div style="text-align: center; padding: 20px;">
     <nz-empty [nzNotFoundContent]="null"></nz-empty>
-    <p>Não há clientes cadastrados!</p>
+    <p>Nenhum cliente encontrado!</p>
   </div>
 </ng-template>

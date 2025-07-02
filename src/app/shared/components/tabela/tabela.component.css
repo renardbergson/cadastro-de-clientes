@@ -1,4 +1,9 @@
-nz-input-group input {
+form {
+  margin: 0 auto;
+  width: 40%;
+}
+
+#search-bar input {
   font-size: 14pt;
 }
 

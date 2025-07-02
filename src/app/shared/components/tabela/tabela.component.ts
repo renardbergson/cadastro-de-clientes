@@ -10,6 +10,7 @@ import { Cliente } from '../../models/cliente.model';
 import { ClienteService } from '../../services/cliente.service';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { FormsModule } from '@angular/forms';
 
 const FeedbackExcluir = {
   sucesso: "Cliente removido com sucesso!",
@@ -33,6 +34,7 @@ const FeedbackRestaurar = {
     NzIconModule, 
     NzInputModule, 
     NzButtonModule,
+    FormsModule,
   ],
   templateUrl: './tabela.component.html',
   styleUrl: './tabela.component.css'
@@ -40,6 +42,7 @@ const FeedbackRestaurar = {
 export class TabelaComponent implements OnInit {
   listaClientes: Cliente[] = []
   clienteExcluir: Cliente | null = null;
+  nomeBuscar: string = "";
 
   constructor(
     private clienteService: ClienteService,
@@ -54,6 +57,16 @@ export class TabelaComponent implements OnInit {
       // Esta função é chamada toda vez que o observable é notificado
       this.feedback.success(FeedbackRestaurar.sucesso, FeedbackRestaurar.duracao);
     })
+  }
+
+  async toSearch(): Promise<void> {
+    if(this.nomeBuscar) {
+      const resultado = await this.clienteService.buscarPorNome(this.nomeBuscar);
+      this.listaClientes = resultado;
+      return;
+    } else {
+      this.listaClientes = await this.clienteService.getClientes();
+    }
   }
 
   toEdit(id: string): void {

@@ -48,7 +48,7 @@ export class FormularioComponent implements OnInit {
     this.route.queryParamMap.subscribe(async params => {
       const id = params.get("id");
       if(id) {
-        const clienteEditar = await this.clienteService.buscar(id)
+        const clienteEditar = await this.clienteService.buscarPorID(id)
         if(clienteEditar) {
           this.atualizandoCliente = true;
           this.cliente = clienteEditar;
