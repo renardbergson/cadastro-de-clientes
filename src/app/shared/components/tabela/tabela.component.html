@@ -43,12 +43,11 @@
       <td>{{ cliente.nome }}</td>
       <td>{{ cliente.email }}</td>
       <td>{{ cliente.dataNascimento }}</td>
-      <td>{{ cliente.cidade }}</td>
+      <td>{{ cliente.municipio }}</td>
       <td>{{ cliente.estado }}</td>
       <td class="actions">
         <a (click)="cliente.id ? toEdit(cliente.id) : null">
           Editar
-          <nz-icon nzType="edit" nzTheme="outline" />
         </a>
         
         <nz-divider nzType="vertical" />
@@ -56,12 +55,10 @@
         @if(clienteExcluir?.id === cliente.id) {
           <a (click)="delete()">
             Confirmar
-            <nz-icon nzType="question" nzTheme="outline" />
           </a>
         } @else {
           <a (click)="toDelete(cliente)">
             Excluir
-            <nz-icon nzType="delete" nzTheme="outline" />
           </a>
         }
       </td>

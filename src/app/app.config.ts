@@ -11,9 +11,6 @@ import {
   EnvironmentOutline, 
   VerifiedOutline, 
   SearchOutline, 
-  DeleteOutline, 
-  EditOutline, 
-  QuestionOutline,
   SettingOutline
 } from '@ant-design/icons-angular/icons';
 
@@ -33,9 +30,6 @@ export const appConfig: ApplicationConfig = {
       EnvironmentOutline, 
       VerifiedOutline, 
       SearchOutline, 
-      DeleteOutline, 
-      EditOutline, 
-      QuestionOutline,  
       SettingOutline
     ])
   ]

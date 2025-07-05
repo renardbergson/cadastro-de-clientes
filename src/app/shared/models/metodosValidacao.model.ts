@@ -1,0 +1,1 @@
+export type MetodosValidacao = 'buscarPorEmail' | 'buscarPorCpf';

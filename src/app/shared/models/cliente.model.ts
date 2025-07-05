@@ -6,8 +6,8 @@ export class Cliente {
   cpf?: string;
   email?: string;
   dataNascimento?: string;
-  cidade?: string;
   estado?: string;
+  municipio?: string;
 
   static novoCliente() {
     const cliente = new Cliente();

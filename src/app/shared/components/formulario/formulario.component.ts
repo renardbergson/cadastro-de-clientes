@@ -4,45 +4,67 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { FormsModule } from '@angular/forms';
 import { Cliente } from '../../models/cliente.model';
 import { ClienteService } from '../../services/cliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrasilApiService } from '../../services/brasil-api.service';
 import { Estado } from '../../models/estado.model';
 import { Municipio } from '../../models/municipio.model';
-
-const FeedbackAtualizar = {
-  sucesso: "Cliente atualizado com sucesso!",
-  erro: "Ocorreu um erro ao atualizar o cliente!",
-  duracao: {nzDuration: 5000},
-}
-
- const FeedbackSalvar = {
-  sucesso: "Cliente salvo com sucesso!",
-  erro:"Ocorreu um erro ao salvar o cliente!",
-  duracao: {nzDuration: 5000},
-}
+import { 
+  ReactiveFormsModule, 
+  FormBuilder, 
+  FormGroup, Validators, 
+  AbstractControl, 
+  ValidationErrors 
+} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { MetodosValidacao } from '../../models/metodosValidacao.model';
 
 @Component({
   selector: 'formulario-cadastro',
   imports: [
+    ReactiveFormsModule,
+    CommonModule,
     NzInputModule, 
     NzIconModule, 
     NzSelectModule, 
-    NzButtonModule, 
-    FormsModule
+    NzButtonModule,
   ],
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.css'
 })
 export class FormularioComponent implements OnInit {
+  formCadastro!: FormGroup; // será inicializado no ngOnInit
   cliente: Cliente = Cliente.novoCliente();
   atualizandoCliente: boolean = false;
   estados: Estado[] = [];
   municipios: Municipio[] = [];
+  private debounceTimer?: number;
+  private readonly debounceDelay: number = 2000;
+
+  validacoes = {
+    nome: ['', [Validators.required, Validators.minLength(3)]],
+    email: ['', [Validators.required, Validators.email], [this.verificarSeEmailExiste.bind(this)]],
+    cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)], [this.verificarSeCpfExiste.bind(this)]],
+    dataNascimento: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
+    estado: ['', [Validators.required]],
+    municipio: ['', [Validators.required]],
+  }
+
+  feedbackAtualizar = {
+    sucesso: "Cliente atualizado com sucesso!",
+    erro: "Ocorreu um erro ao atualizar o cliente!",
+    duracao: {nzDuration: 5000},
+  }
+
+  feedbackSalvar = {
+    sucesso: "Cliente salvo com sucesso!",
+    erro:"Ocorreu um erro ao salvar o cliente!",
+    duracao: {nzDuration: 5000},
+  }
 
   constructor(
+    private formBuilder: FormBuilder,
     private clienteService: ClienteService,
     private route: ActivatedRoute,
     private router: Router,
@@ -51,53 +73,116 @@ export class FormularioComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(async params => {
-      const id = params.get("id");
-      if(id) {
-        const clienteEditar = await this.clienteService.buscarPorID(id)
-        if(clienteEditar) {
-          this.atualizandoCliente = true;
-          this.cliente = clienteEditar;
-          if(this.cliente.estado) this.listarMunicipios(this.cliente.estado);
-        }
-      };
-    })
-
+    this.formCadastro = this.formBuilder.group(this.validacoes);
+    this.verificarQueryParams();
     this.listarUFs();
   }
 
-  async submit() {
-    if(this.atualizandoCliente) {
-      const atualizou: boolean = await this.clienteService.atualizar(this.cliente);
-      if(atualizou) {
-        this.feedback.success(FeedbackAtualizar.sucesso, FeedbackAtualizar.duracao);
-        this.atualizandoCliente = false;
-        this.router.navigate(['/consulta']);
-      } else {
-        this.feedback.error(FeedbackAtualizar.erro, FeedbackAtualizar.duracao);
+  verificarQueryParams() {
+    this.route.queryParamMap.subscribe(async params => {
+      const id = params.get("id");
+      if(id) {
+        try {
+          const clienteEditar: Cliente | undefined = await this.clienteService.buscarPorID(id)
+          if(clienteEditar) {
+            this.atualizandoCliente = true;
+            Object.assign(this.cliente, clienteEditar);
+            console.log(this.cliente);
+            this.formCadastro.patchValue(this.cliente);
+            this.cliente.estado ? this.listarMunicipios(this.cliente.estado) : null;
+          }
+        } catch (error) {
+          console.error('Erro ao buscar cliente:', error);
+          this.feedback.error('Erro ao carregar dados do cliente');
+        }
       }
-    } else {
-      const salvou: boolean = await this.clienteService.salvar(this.cliente);
-      if(salvou) {
-        this.feedback.success(FeedbackSalvar.sucesso, FeedbackSalvar.duracao);
-        this.cliente = Cliente.novoCliente();
-      } else {
-        this.feedback.error(FeedbackSalvar.erro, FeedbackSalvar.duracao);
-      }
-    }
+    })
   }
 
   listarUFs(): void {
     this.brasilApi.listarUFs().subscribe({
       next: listaEstados => {this.estados = listaEstados},
-      error: error => console.error(error),
+      error: error => {
+        console.error('Erro ao carregar UFs:', error)
+        this.feedback.error('Não foi possível carregar as UFs')
+      },
     })
   }
 
   listarMunicipios(uf: string) {
     this.brasilApi.listarMunicipios(uf).subscribe({
       next: listaMunicipios => {this.municipios = listaMunicipios},
-      error: error => console.error(error),
+      error: error => {
+        console.error('Erro ao carregar municípios:', error)
+        this.feedback.error('Não foi possível carregar os municípios')
+      },
     });
+  }
+
+  limparFormulario() {
+    this.cliente = Cliente.novoCliente();
+    this.formCadastro.reset();
+  }
+
+  async validarCampo(campo: string, metodo: MetodosValidacao, control: AbstractControl): Promise<ValidationErrors | null> {
+    if(this.debounceTimer) clearTimeout(this.debounceTimer);
+    return new Promise(resolve => {
+      this.debounceTimer = setTimeout(async () => {
+        try {
+          const resultado = await this.clienteService[metodo](control.value);
+          if(resultado) {
+            this.formCadastro.get(campo)?.markAsTouched();
+            resolve({ [`${campo}JaExiste`]: true });
+          } else {
+            resolve(null);
+          }
+        } catch (error) {
+          console.log(`Erro ao validar ${campo}:`, error);
+          resolve(null)
+        }
+      }, this.debounceDelay);
+    })
+  }
+
+  async verificarSeEmailExiste(control: AbstractControl): Promise<ValidationErrors | null> {
+    if(this.formCadastro.get('email')?.value === this.cliente.email) {
+      return null;
+    } else {
+      return this.validarCampo('email', 'buscarPorEmail', control);
+    }
+  }
+
+  async verificarSeCpfExiste(control: AbstractControl): Promise<ValidationErrors | null> {
+    if(this.formCadastro.get('cpf')?.value === this.cliente.cpf) {
+      return null;
+    } else {
+      return this.validarCampo('cpf', 'buscarPorCpf', control);
+    }
+  }
+
+  async submit() {
+    if(this.formCadastro.invalid) {
+      this.formCadastro.markAllAsTouched();
+      return;
+    }
+    Object.assign(this.cliente, this.formCadastro.value);
+    if(this.atualizandoCliente) {
+      const atualizou: boolean = await this.clienteService.atualizar(this.cliente);
+      if(atualizou) {
+        this.feedback.success(this.feedbackAtualizar.sucesso, this.feedbackAtualizar.duracao);
+        this.atualizandoCliente = false;
+        this.router.navigate(['/consulta']);
+      } else {
+        this.feedback.error(this.feedbackAtualizar.erro, this.feedbackAtualizar.duracao);
+      }
+    } else {
+      const salvou: boolean = await this.clienteService.salvar(this.cliente);
+      if(salvou) {
+        this.feedback.success(this.feedbackSalvar.sucesso, this.feedbackSalvar.duracao);
+        this.limparFormulario();
+      } else {
+        this.feedback.error(this.feedbackSalvar.erro, this.feedbackSalvar.duracao);
+      }
+    }
   }
 }

@@ -12,6 +12,7 @@
 
   & .input-container {
     margin-bottom: 30px;
+    position: relative;
 
     & nz-input-group {
       border-radius: 6px;
@@ -26,6 +27,13 @@
 
     & nz-select {
       width: 100%;
+    }
+
+    & .mensagem-erro {
+      color: #ff4d4f;
+      position: absolute;
+      top: 100%;
+      left: 0;
     }
   }
 

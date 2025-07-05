@@ -27,8 +27,8 @@ export class ClienteService {
       "cpf" in cliente &&
       "email" in cliente &&
       "dataNascimento" in cliente &&
-      "cidade" in cliente &&
-      "estado" in cliente
+      "estado" in cliente &&
+      "municipio" in cliente
     ))
   }
 
@@ -68,6 +68,16 @@ export class ClienteService {
       c.nome?.toLocaleLowerCase().includes(nome.toLocaleLowerCase())
     )
     return resultado;
+  }
+
+  async buscarPorEmail(email: string): Promise<Cliente | undefined> {
+    const clientes: Cliente[] = await this.getClientes();
+    return clientes.find(c => c.email === email);
+  }
+
+  async buscarPorCpf(cpf: string): Promise<Cliente | undefined> {
+    const clientes: Cliente[] = await this.getClientes();
+    return clientes.find(c => c.cpf === cpf);
   }
 
   async atualizar(cliente: Cliente): Promise<boolean> {

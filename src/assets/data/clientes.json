@@ -2,91 +2,91 @@
   {
     "id": "1",
     "nome": "Renard Bergson",
-    "cpf": "123.456.789-00",
+    "cpf": "12345678900",
     "email": "renard.contato@gmail.com",
-    "dataNascimento": "01/08/1992",
-    "cidade": "SANTA LUZIA",
-    "estado": "PB"
+    "dataNascimento": "01081992",
+    "estado": "PB",
+    "municipio": "SANTA LUZIA"
   },
   {
     "id": "2",
     "nome": "Maria Silva",
-    "cpf": "987.654.321-00",
+    "cpf": "98765432100",
     "email": "maria.silva@hotmail.com",
-    "dataNascimento": "15/03/1985",
-    "cidade": "RECIFE",
-    "estado": "PE"
+    "dataNascimento": "15031985",
+    "estado": "PE",
+    "municipio": "RECIFE"
   },
   {
     "id": "3",
     "nome": "João Santos",
-    "cpf": "456.789.123-00",
+    "cpf": "45678912300",
     "email": "joao.santos@yahoo.com",
-    "dataNascimento": "22/11/1990",
-    "cidade": "NATAL",
-    "estado": "RN"
+    "dataNascimento": "22111990",
+    "estado": "RN",
+    "municipio": "NATAL"
   },
   {
     "id": "4",
     "nome": "Ana Costa",
-    "cpf": "789.123.456-00",
+    "cpf": "78912345600",
     "email": "ana.costa@gmail.com",
-    "dataNascimento": "08/07/1988",
-    "cidade": "FORTALEZA",
-    "estado": "CE"
+    "dataNascimento": "08071988",
+    "estado": "CE",
+    "municipio": "FORTALEZA"
   },
   {
     "id": "5",
     "nome": "Pedro Oliveira",
-    "cpf": "321.654.987-00",
+    "cpf": "32165498700",
     "email": "pedro.oliveira@outlook.com",
-    "dataNascimento": "12/04/1995",
-    "cidade": "SALVADOR",
-    "estado": "BA"
+    "dataNascimento": "12041995",
+    "estado": "BA",
+    "municipio": "SALVADOR"
   },
   {
     "id": "6",
     "nome": "Lucia Ferreira",
-    "cpf": "654.987.321-00",
+    "cpf": "65498732100",
     "email": "lucia.ferreira@gmail.com",
-    "dataNascimento": "30/09/1983",
-    "cidade": "MACEIÓ",
-    "estado": "AL"
+    "dataNascimento": "30091983",
+    "estado": "AL",
+    "municipio": "MACEIÓ"
   },
   {
     "id": "7",
     "nome": "Carlos Lima",
-    "cpf": "147.258.369-00",
+    "cpf": "14725836900",
     "email": "carlos.lima@hotmail.com",
-    "dataNascimento": "18/12/1991",
-    "cidade": "ARACAJU",
-    "estado": "SE"
+    "dataNascimento": "18121991",
+    "estado": "SE",
+    "municipio": "ARACAJU"
   },
   {
     "id": "8",
     "nome": "Fernanda Rocha",
-    "cpf": "258.369.147-00",
+    "cpf": "25836914700",
     "email": "fernanda.rocha@yahoo.com",
-    "dataNascimento": "25/06/1987",
-    "cidade": "TERESINA",
-    "estado": "PI"
+    "dataNascimento": "25061987",
+    "estado": "PI",
+    "municipio": "TERESINA"
   },
   {
     "id": "9",
     "nome": "Roberto Alves",
-    "cpf": "369.147.258-00",
+    "cpf": "36914725800",
     "email": "roberto.alves@gmail.com",
-    "dataNascimento": "03/02/1993",
-    "cidade": "SÃO LUÍS",
-    "estado": "MA"
+    "dataNascimento": "03021993",
+    "estado": "MA",
+    "municipio": "SÃO LUÍS"
   },
   {
     "id": "10",
     "nome": "Juliana Martins",
-    "cpf": "951.753.852-00",
+    "cpf": "95175385200",
     "email": "juliana.martins@outlook.com",
-    "dataNascimento": "14/10/1989",
-    "cidade": "BELÉM",
-    "estado": "PA"
+    "dataNascimento": "14101989",
+    "estado": "PA",
+    "municipio": "BELÉM"
   }
 ]
