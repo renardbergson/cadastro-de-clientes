@@ -126,8 +126,11 @@ export class FormularioComponent implements OnInit {
   }
 
   limparFormulario() {
-    this.cliente = Cliente.novoCliente();
+    // console.log(this.cliente);
+    // console.log(this.formCadastro.value);
     this.formCadastro.reset();
+    Object.assign(this.cliente, this.formCadastro.value);
+    console.log(this.cliente);
   }
 
   async validarCampo(campo: string, metodo: MetodosValidacao, control: AbstractControl): Promise<ValidationErrors | null> {
@@ -189,6 +192,7 @@ export class FormularioComponent implements OnInit {
       if(salvou) {
         this.feedback.success(this.feedbackSalvar.sucesso);
         this.limparFormulario();
+        this.cliente = Cliente.novoCliente();
       } else {
         this.feedback.error(this.feedbackSalvar.erro);
       }

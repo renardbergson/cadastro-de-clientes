@@ -18,11 +18,6 @@ const FeedbackExcluir = {
   erro: "Ocorreu um erro ao remover o cliente!"
 }
 
-const FeedbackRestaurar = {
-  sucesso: "Os clientes base foram restaurados!",
-  erro: "Ocorreu um erro ao restaurar os clientes!",
-}
-
 @Component({
   selector: 'app-tabela',
   imports: [
@@ -54,7 +49,6 @@ export class TabelaComponent implements OnInit {
     this.clienteService.clientesRestaurados$.subscribe(async () => {
       // Esta função é chamada toda vez que o observable é notificado
       this.listaClientes = await this.clienteService.getClientes();
-      this.feedback.success(FeedbackRestaurar.sucesso);
     })
   }
 
