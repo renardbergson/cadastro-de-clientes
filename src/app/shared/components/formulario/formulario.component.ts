@@ -126,11 +126,8 @@ export class FormularioComponent implements OnInit {
   }
 
   limparFormulario() {
-    // console.log(this.cliente);
-    // console.log(this.formCadastro.value);
     this.formCadastro.reset();
     Object.assign(this.cliente, this.formCadastro.value);
-    console.log(this.cliente);
   }
 
   async validarCampo(campo: string, metodo: MetodosValidacao, control: AbstractControl): Promise<ValidationErrors | null> {
@@ -146,7 +143,6 @@ export class FormularioComponent implements OnInit {
             resolve(null);
           }
         } catch (error) {
-          console.log(`Erro ao validar ${campo}:`, error);
           resolve(null)
         }
       }, this.debounceDelay);
