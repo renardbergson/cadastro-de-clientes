@@ -4,8 +4,8 @@ Este é meu segundo projeto com Angular! Uma aplicação completa de cadastro de
 
 ## 🚀 Live Demo
 
-Acesse a aplicação em:  
-[Link para demo em produção]
+Acesse a aplicação aqui:  
+🔗 [Build Vercel](https://cadastro-de-clientes-tan.vercel.app/consulta)
 
 ## 📸 Preview
 
@@ -190,7 +190,7 @@ Comparado ao [Shopping List](https://github.com/renardbergson/shopping-list), es
 
 ## 👨‍💻 Sobre o Desenvolvedor
 
-Desenvolvido por **Renard Bergson** - [GitHub](https://github.com/renardbergson)
+Desenvolvido por **Renard Bergson** - [LinkedIn](https://www.linkedin.com/in/renardbergson/)
 
 ---
 
