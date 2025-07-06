@@ -42,7 +42,12 @@
     <tr *ngFor="let cliente of tabelaClientes.data">
       <td>{{ cliente.nome }}</td>
       <td>{{ cliente.email }}</td>
-      <td>{{ cliente.dataNascimento }}</td>
+      <td>{{ 
+        cliente.dataNascimento 
+        ? formatarData(cliente.dataNascimento) 
+        : null 
+        }}
+      </td>
       <td>{{ cliente.municipio }}</td>
       <td>{{ cliente.estado }}</td>
       <td class="actions">

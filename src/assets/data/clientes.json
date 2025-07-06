@@ -4,7 +4,7 @@
     "nome": "Renard Bergson",
     "cpf": "12345678900",
     "email": "renard.contato@gmail.com",
-    "dataNascimento": "01081992",
+    "dataNascimento": "1992-08-01T00:00:00.000Z",
     "estado": "PB",
     "municipio": "SANTA LUZIA"
   },
@@ -13,7 +13,7 @@
     "nome": "Maria Silva",
     "cpf": "98765432100",
     "email": "maria.silva@hotmail.com",
-    "dataNascimento": "15031985",
+    "dataNascimento": "1985-03-15T00:00:00.000Z",
     "estado": "PE",
     "municipio": "RECIFE"
   },
@@ -22,7 +22,7 @@
     "nome": "João Santos",
     "cpf": "45678912300",
     "email": "joao.santos@yahoo.com",
-    "dataNascimento": "22111990",
+    "dataNascimento": "1990-11-22T00:00:00.000Z",
     "estado": "RN",
     "municipio": "NATAL"
   },
@@ -31,7 +31,7 @@
     "nome": "Ana Costa",
     "cpf": "78912345600",
     "email": "ana.costa@gmail.com",
-    "dataNascimento": "08071988",
+    "dataNascimento": "1988-07-08T00:00:00.000Z",
     "estado": "CE",
     "municipio": "FORTALEZA"
   },
@@ -40,7 +40,7 @@
     "nome": "Pedro Oliveira",
     "cpf": "32165498700",
     "email": "pedro.oliveira@outlook.com",
-    "dataNascimento": "12041995",
+    "dataNascimento": "1995-04-12T00:00:00.000Z",
     "estado": "BA",
     "municipio": "SALVADOR"
   },
@@ -49,7 +49,7 @@
     "nome": "Lucia Ferreira",
     "cpf": "65498732100",
     "email": "lucia.ferreira@gmail.com",
-    "dataNascimento": "30091983",
+    "dataNascimento": "1983-09-30T00:00:00.000Z",
     "estado": "AL",
     "municipio": "MACEIÓ"
   },
@@ -58,7 +58,7 @@
     "nome": "Carlos Lima",
     "cpf": "14725836900",
     "email": "carlos.lima@hotmail.com",
-    "dataNascimento": "18121991",
+    "dataNascimento": "1991-12-18T00:00:00.000Z",
     "estado": "SE",
     "municipio": "ARACAJU"
   },
@@ -67,7 +67,7 @@
     "nome": "Fernanda Rocha",
     "cpf": "25836914700",
     "email": "fernanda.rocha@yahoo.com",
-    "dataNascimento": "25061987",
+    "dataNascimento": "1987-06-25T00:00:00.000Z",
     "estado": "PI",
     "municipio": "TERESINA"
   },
@@ -76,7 +76,7 @@
     "nome": "Roberto Alves",
     "cpf": "36914725800",
     "email": "roberto.alves@gmail.com",
-    "dataNascimento": "03021993",
+    "dataNascimento": "1993-02-03T00:00:00.000Z",
     "estado": "MA",
     "municipio": "SÃO LUÍS"
   },
@@ -85,7 +85,7 @@
     "nome": "Juliana Martins",
     "cpf": "95175385200",
     "email": "juliana.martins@outlook.com",
-    "dataNascimento": "14101989",
+    "dataNascimento": "1989-10-14T00:00:00.000Z",
     "estado": "PA",
     "municipio": "BELÉM"
   }

@@ -19,6 +19,8 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MetodosValidacao } from '../../models/metodosValidacao.model';
+import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
+import { formatDateToIso, formatDateToBR } from '../../utils/date.utils';
 
 @Component({
   selector: 'formulario-cadastro',
@@ -29,7 +31,9 @@ import { MetodosValidacao } from '../../models/metodosValidacao.model';
     NzIconModule, 
     NzSelectModule, 
     NzButtonModule,
+    NgxMaskDirective
   ],
+  providers: [provideNgxMask()],
   templateUrl: './formulario.component.html',
   styleUrl: './formulario.component.css'
 })
@@ -54,13 +58,11 @@ export class FormularioComponent implements OnInit {
   feedbackAtualizar = {
     sucesso: "Cliente atualizado com sucesso!",
     erro: "Ocorreu um erro ao atualizar o cliente!",
-    duracao: {nzDuration: 5000},
   }
 
   feedbackSalvar = {
     sucesso: "Cliente salvo com sucesso!",
     erro:"Ocorreu um erro ao salvar o cliente!",
-    duracao: {nzDuration: 5000},
   }
 
   constructor(
@@ -87,9 +89,13 @@ export class FormularioComponent implements OnInit {
           if(clienteEditar) {
             this.atualizandoCliente = true;
             Object.assign(this.cliente, clienteEditar);
-            console.log(this.cliente);
+            this.cliente.dataNascimento 
+              ? formatDateToBR(this.cliente.dataNascimento)
+              : null;
             this.formCadastro.patchValue(this.cliente);
-            this.cliente.estado ? this.listarMunicipios(this.cliente.estado) : null;
+            this.cliente.estado 
+              ? this.listarMunicipios(this.cliente.estado) 
+              : null;
           }
         } catch (error) {
           console.error('Erro ao buscar cliente:', error);
@@ -165,23 +171,26 @@ export class FormularioComponent implements OnInit {
       this.formCadastro.markAllAsTouched();
       return;
     }
-    Object.assign(this.cliente, this.formCadastro.value);
+    Object.assign(this.cliente, {
+      ...this.formCadastro.value,
+      dataNascimento: formatDateToIso(this.formCadastro.value.dataNascimento)
+    });
     if(this.atualizandoCliente) {
       const atualizou: boolean = await this.clienteService.atualizar(this.cliente);
       if(atualizou) {
-        this.feedback.success(this.feedbackAtualizar.sucesso, this.feedbackAtualizar.duracao);
+        this.feedback.success(this.feedbackAtualizar.sucesso);
         this.atualizandoCliente = false;
         this.router.navigate(['/consulta']);
       } else {
-        this.feedback.error(this.feedbackAtualizar.erro, this.feedbackAtualizar.duracao);
+        this.feedback.error(this.feedbackAtualizar.erro);
       }
     } else {
       const salvou: boolean = await this.clienteService.salvar(this.cliente);
       if(salvou) {
-        this.feedback.success(this.feedbackSalvar.sucesso, this.feedbackSalvar.duracao);
+        this.feedback.success(this.feedbackSalvar.sucesso);
         this.limparFormulario();
       } else {
-        this.feedback.error(this.feedbackSalvar.erro, this.feedbackSalvar.duracao);
+        this.feedback.error(this.feedbackSalvar.erro);
       }
     }
   }

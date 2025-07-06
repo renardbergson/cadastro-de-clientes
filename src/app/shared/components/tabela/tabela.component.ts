@@ -11,17 +11,16 @@ import { ClienteService } from '../../services/cliente.service';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { FormsModule } from '@angular/forms';
+import { formatDateToBR } from '../../utils/date.utils';
 
 const FeedbackExcluir = {
   sucesso: "Cliente removido com sucesso!",
-  erro: "Ocorreu um erro ao remover o cliente!",
-  duracao: {nzDuration: 5000},
+  erro: "Ocorreu um erro ao remover o cliente!"
 }
 
 const FeedbackRestaurar = {
   sucesso: "Os clientes base foram restaurados!",
   erro: "Ocorreu um erro ao restaurar os clientes!",
-  duracao: {nzDuration: 5000},
 }
 
 @Component({
@@ -53,9 +52,9 @@ export class TabelaComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.listaClientes = await this.clienteService.getClientes();
     this.clienteService.clientesRestaurados$.subscribe(async () => {
-      this.listaClientes = await this.clienteService.getClientes();
       // Esta função é chamada toda vez que o observable é notificado
-      this.feedback.success(FeedbackRestaurar.sucesso, FeedbackRestaurar.duracao);
+      this.listaClientes = await this.clienteService.getClientes();
+      this.feedback.success(FeedbackRestaurar.sucesso);
     })
   }
 
@@ -67,6 +66,10 @@ export class TabelaComponent implements OnInit {
     } else {
       this.listaClientes = await this.clienteService.getClientes();
     }
+  }
+
+  formatarData(dataISO: string) {
+    return formatDateToBR(dataISO);
   }
 
   toEdit(id: string): void {
@@ -84,9 +87,9 @@ export class TabelaComponent implements OnInit {
     if(this.clienteExcluir) {
       const novaListaClientes = await this.clienteService.excluir(this.clienteExcluir);
       this.listaClientes = novaListaClientes;
-      this.feedback.success(FeedbackExcluir.sucesso, FeedbackExcluir.duracao);
+      this.feedback.success(FeedbackExcluir.sucesso);
     } else {
-      this.feedback.error(FeedbackExcluir.erro, FeedbackExcluir.duracao);
+      this.feedback.error(FeedbackExcluir.erro);
     }
   }
 }
