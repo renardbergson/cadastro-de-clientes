@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TabelaComponent } from '../../shared/components/tabela/tabela.component';
+import { TabelaComponent } from './components/tabela/tabela.component';
 
 @Component({
   selector: 'app-consulta',

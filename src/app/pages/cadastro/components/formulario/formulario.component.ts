@@ -4,12 +4,12 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Cliente } from '../../models/cliente.model';
-import { ClienteService } from '../../services/cliente.service';
+import { Cliente } from '../../../../shared/models/cliente.model';
+import { ClienteService } from '../../../../shared/services/cliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BrasilApiService } from '../../services/brasil-api.service';
-import { Estado } from '../../models/estado.model';
-import { Municipio } from '../../models/municipio.model';
+import { BrasilApiService } from '../../../../shared/services/brasil-api.service';
+import { Estado } from '../../../../shared/models/estado.model';
+import { Municipio } from '../../../../shared/models/municipio.model';
 import { 
   ReactiveFormsModule, 
   FormBuilder, 
@@ -18,9 +18,9 @@ import {
   ValidationErrors 
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MetodosValidacao } from '../../models/metodosValidacao.model';
+import { MetodosValidacao } from '../../../../shared/models/metodosValidacao.model';
 import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
-import { formatDateToIso, formatDateToBR } from '../../utils/date.utils';
+import { formatDateToIso, formatDateToBR } from '../../../../shared/utils/date.utils';
 
 @Component({
   selector: 'formulario-cadastro',

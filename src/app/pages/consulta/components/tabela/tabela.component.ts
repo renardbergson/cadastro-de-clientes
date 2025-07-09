@@ -6,12 +6,12 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { Cliente } from '../../models/cliente.model';
-import { ClienteService } from '../../services/cliente.service';
+import { Cliente } from '../../../../shared/models/cliente.model';
+import { ClienteService } from '../../../../shared/services/cliente.service';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { FormsModule } from '@angular/forms';
-import { formatDateToBR } from '../../utils/date.utils';
+import { formatDateToBR } from '../../../../shared/utils/date.utils';
 
 const FeedbackExcluir = {
   sucesso: "Cliente removido com sucesso!",

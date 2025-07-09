@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormularioComponent } from '../../shared/components/formulario/formulario.component';
+import { FormularioComponent } from './components/formulario/formulario.component';
 
 @Component({
   selector: 'app-cadastro',
