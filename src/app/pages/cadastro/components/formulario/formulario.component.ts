@@ -10,15 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BrasilApiService } from '../../../../shared/services/brasil-api.service';
 import { Estado } from '../../../../shared/models/estado.model';
 import { Municipio } from '../../../../shared/models/municipio.model';
-import { 
-  ReactiveFormsModule, 
-  FormBuilder, 
-  FormGroup, Validators, 
-  AbstractControl, 
-  ValidationErrors 
-} from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { camposBase, verificarSeEmailExiste, verificarSeCpfExiste } from './validators/formulario.validacao';
 import { CommonModule } from '@angular/common';
-import { MetodosValidacao } from '../../../../shared/models/metodosValidacao.model';
 import { NgxMaskDirective, provideNgxMask } from "ngx-mask";
 import { formatDateToIso, formatDateToBR } from '../../../../shared/utils/date.utils';
 
@@ -43,17 +37,6 @@ export class FormularioComponent implements OnInit {
   atualizandoCliente: boolean = false;
   estados: Estado[] = [];
   municipios: Municipio[] = [];
-  private debounceTimer?: number;
-  private readonly debounceDelay: number = 2000;
-
-  validacoes = {
-    nome: ['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.email], [this.verificarSeEmailExiste.bind(this)]],
-    cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)], [this.verificarSeCpfExiste.bind(this)]],
-    dataNascimento: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
-    estado: ['', [Validators.required]],
-    municipio: ['', [Validators.required]],
-  }
 
   feedbackAtualizar = {
     sucesso: "Cliente atualizado com sucesso!",
@@ -75,7 +58,13 @@ export class FormularioComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.formCadastro = this.formBuilder.group(this.validacoes);
+    this.formCadastro = this.formBuilder.group(camposBase);
+    this.formCadastro.get('email')?.setAsyncValidators(
+      verificarSeEmailExiste(this.cliente, this.clienteService)
+    );
+    this.formCadastro.get('cpf')?.setAsyncValidators(
+      verificarSeCpfExiste(this.cliente, this.clienteService)
+    )
     this.verificarQueryParams();
     this.listarUFs();
   }
@@ -96,6 +85,8 @@ export class FormularioComponent implements OnInit {
             this.cliente.estado 
               ? this.listarMunicipios(this.cliente.estado) 
               : null;
+          } else {
+            throw new Error('Erro ao carregar dados do cliente');
           }
         } catch (error) {
           console.error('Erro ao buscar cliente:', error);
@@ -128,41 +119,6 @@ export class FormularioComponent implements OnInit {
   limparFormulario() {
     this.formCadastro.reset();
     Object.assign(this.cliente, this.formCadastro.value);
-  }
-
-  async validarCampo(campo: string, metodo: MetodosValidacao, control: AbstractControl): Promise<ValidationErrors | null> {
-    if(this.debounceTimer) clearTimeout(this.debounceTimer);
-    return new Promise(resolve => {
-      this.debounceTimer = setTimeout(async () => {
-        try {
-          const resultado = await this.clienteService[metodo](control.value);
-          if(resultado) {
-            this.formCadastro.get(campo)?.markAsTouched();
-            resolve({ [`${campo}JaExiste`]: true });
-          } else {
-            resolve(null);
-          }
-        } catch (error) {
-          resolve(null)
-        }
-      }, this.debounceDelay);
-    })
-  }
-
-  async verificarSeEmailExiste(control: AbstractControl): Promise<ValidationErrors | null> {
-    if(this.formCadastro.get('email')?.value === this.cliente.email) {
-      return null;
-    } else {
-      return this.validarCampo('email', 'buscarPorEmail', control);
-    }
-  }
-
-  async verificarSeCpfExiste(control: AbstractControl): Promise<ValidationErrors | null> {
-    if(this.formCadastro.get('cpf')?.value === this.cliente.cpf) {
-      return null;
-    } else {
-      return this.validarCampo('cpf', 'buscarPorCpf', control);
-    }
   }
 
   async submit() {
