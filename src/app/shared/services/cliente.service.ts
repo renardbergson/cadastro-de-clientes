@@ -81,24 +81,34 @@ export class ClienteService {
   }
 
   async atualizar(cliente: Cliente): Promise<boolean> {
-    const clientes: Cliente[] = await this.getClientes();
-    for (const c of clientes) {
-      if(c.id === cliente.id) {
-        Object.assign(c, cliente);
-        localStorage.setItem('clientes', JSON.stringify(clientes));
-        return true;
+    try {
+      const clientes: Cliente[] = await this.getClientes();
+      for (const c of clientes) {
+        if(c.id === cliente.id) {
+          Object.assign(c, cliente);
+          localStorage.setItem('clientes', JSON.stringify(clientes));
+          return true; // encontrou e atualizou
+        }
       }
+      return false; // não encontrou
+    } catch (error) {
+      console.error('Erro ao tentar atualizar cliente:', error);
+      return false;
     }
-    return false;
   }
 
   async salvar(cliente: Cliente): Promise<boolean> {
-    const clientes: Cliente[] = await this.getClientes();
-    clientes.push(cliente);
-    localStorage.setItem('clientes', JSON.stringify(clientes));
-    this.clientes = clientes;
-    this.quantidadeClientesMudou$.next();
-    return true;
+    try {      
+      const clientes: Cliente[] = await this.getClientes();
+      clientes.push(cliente);
+      localStorage.setItem('clientes', JSON.stringify(clientes));
+      this.clientes = clientes;
+      this.quantidadeClientesMudou$.next();
+      return true;
+    } catch (error) {
+      console.error('Erro ao tentar salvar cliente:', error);
+      return false;
+    }
   }
 
   async excluir(cliente: Cliente): Promise<Cliente[]> {

@@ -38,16 +38,6 @@ export class FormularioComponent implements OnInit {
   estados: Estado[] = [];
   municipios: Municipio[] = [];
 
-  feedbackAtualizar = {
-    sucesso: "Cliente atualizado com sucesso!",
-    erro: "Ocorreu um erro ao atualizar o cliente!",
-  }
-
-  feedbackSalvar = {
-    sucesso: "Cliente salvo com sucesso!",
-    erro:"Ocorreu um erro ao salvar o cliente!",
-  }
-
   constructor(
     private formBuilder: FormBuilder,
     private clienteService: ClienteService,
@@ -131,23 +121,41 @@ export class FormularioComponent implements OnInit {
       dataNascimento: formatDateToIso(this.formCadastro.value.dataNascimento)
     });
     if(this.atualizandoCliente) {
-      const atualizou: boolean = await this.clienteService.atualizar(this.cliente);
+      await this.atualizar();
+    } else {
+      await this.salvar();
+    }
+  }
+
+  async atualizar() {
+    try {
+      const atualizou: boolean = await this.clienteService.atualizar(this.cliente);      
       if(atualizou) {
-        this.feedback.success(this.feedbackAtualizar.sucesso);
+        this.feedback.success("Cliente atualizado com sucesso!");
         this.atualizandoCliente = false;
         this.router.navigate(['/consulta']);
       } else {
-        this.feedback.error(this.feedbackAtualizar.erro);
+        this.feedback.error("Ocorreu um erro ao atualizar o cliente!");
       }
-    } else {
+    } catch (error) {
+      console.error(error);
+      this.feedback.error('Erro inesperado ao tentar atualizar cliente');
+    }
+  }
+
+  async salvar() {
+    try {
       const salvou: boolean = await this.clienteService.salvar(this.cliente);
       if(salvou) {
-        this.feedback.success(this.feedbackSalvar.sucesso);
+        this.feedback.success("Cliente salvo com sucesso!");
         this.limparFormulario();
         this.cliente = Cliente.novoCliente();
       } else {
-        this.feedback.error(this.feedbackSalvar.erro);
+        this.feedback.error("Ocorreu um erro ao salvar o cliente!");
       }
+    } catch (error) {
+      console.error(error);
+      this.feedback.error('Erro inesperado ao tentar salvar cliente');
     }
   }
 }
