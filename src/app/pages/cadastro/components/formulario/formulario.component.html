@@ -1,17 +1,17 @@
-<form 
-  class="formulario-container" 
-  [formGroup]="formCadastro" 
+<form
+  class="formulario-container"
+  [formGroup]="formCadastro"
   (ngSubmit)="submit()"
 >
   <h2>Dados Pessoais</h2>
-  
+
   <div class="input-container">
     <nz-input-group [nzPrefix]="userIcon">
-      <input 
+      <input
         formControlName="nome"
-        type="text" 
-        nz-input 
-        placeholder="Nome Completo" 
+        type="text"
+        nz-input
+        placeholder="Nome Completo"
       />
     </nz-input-group>
 
@@ -19,29 +19,31 @@
       <nz-icon nzType="user" nzTheme="outline" />
     </ng-template>
 
-    @if(formCadastro.get('nome')?.invalid && formCadastro.get('nome')?.touched) {
-      <span 
-        *ngIf="formCadastro.get('nome')?.errors?.['required']"
-        class="mensagem-erro" 
-      >
-        O nome é obrigatório!
-      </span>
+    @if(formCadastro.get('nome')?.invalid && formCadastro.get('nome')?.touched)
+    {
+    <span
+      *ngIf="formCadastro.get('nome')?.errors?.['required']"
+      class="mensagem-erro"
+    >
+      O nome é obrigatório!
+    </span>
 
-      <span 
-        *ngIf="formCadastro.get('nome')?.errors?.['minlength']"
-        class="mensagem-erro"
-      >
-        O nome deve ter pelo menos 3 caracteres!
-      </span>
+    <span
+      *ngIf="formCadastro.get('nome')?.errors?.['minlength']"
+      class="mensagem-erro"
+    >
+      O nome deve ter pelo menos 3 caracteres!
+    </span>
     }
   </div>
 
   <div class="input-container">
     <nz-input-group [nzPrefix]="mailIcon">
-      <input 
+      <input
         formControlName="email"
-        type="email" 
-        nz-input placeholder="E-mail"
+        type="email"
+        nz-input
+        placeholder="E-mail"
       />
     </nz-input-group>
 
@@ -49,36 +51,37 @@
       <nz-icon nzType="mail" nzTheme="outline" />
     </ng-template>
 
-    @if(formCadastro.get('email')?.invalid && formCadastro.get('email')?.touched) {
-      <span
-        *ngIf="formCadastro.get('email')?.errors?.['required']"
-        class="mensagem-erro"
-      >
-        O e-mail é obrigatório!
-      </span>
+    @if(formCadastro.get('email')?.invalid &&
+    formCadastro.get('email')?.touched) {
+    <span
+      *ngIf="formCadastro.get('email')?.errors?.['required']"
+      class="mensagem-erro"
+    >
+      O e-mail é obrigatório!
+    </span>
 
-      <span
-        *ngIf="formCadastro.get('email')?.errors?.['email']"
-        class="mensagem-erro"
-      >
-        O e-mail não tem um formato válido!
-      </span>
+    <span
+      *ngIf="formCadastro.get('email')?.errors?.['email']"
+      class="mensagem-erro"
+    >
+      O e-mail não tem um formato válido!
+    </span>
 
-      <span
-        *ngIf="formCadastro.get('email')?.errors?.['emailJaExiste']"
-        class="mensagem-erro"
-      >
-        O e-mail informado já foi cadastrado!
-      </span>
+    <span
+      *ngIf="formCadastro.get('email')?.errors?.['emailJaExiste']"
+      class="mensagem-erro"
+    >
+      O e-mail informado já foi cadastrado!
+    </span>
     }
   </div>
 
   <div class="input-container">
     <nz-input-group [nzPrefix]="cpfIcon">
-      <input 
+      <input
         formControlName="cpf"
-        type="text" 
-        nz-input 
+        type="text"
+        nz-input
         placeholder="CPF"
         mask="000.000.000-00"
       />
@@ -89,36 +92,37 @@
     </ng-template>
 
     @if(formCadastro.get('cpf')?.invalid && formCadastro.get('cpf')?.touched) {
-      <span
-        *ngIf="formCadastro.get('cpf')?.errors?.['required']"
-        class="mensagem-erro"
-      >
-        O CPF é obrigatório!
-      </span>
+    <span
+      *ngIf="formCadastro.get('cpf')?.errors?.['required']"
+      class="mensagem-erro"
+    >
+      O CPF é obrigatório!
+    </span>
 
-      <span
-        *ngIf="formCadastro.get('cpf')?.errors?.['minlength'] || 
+    <span
+      *ngIf="formCadastro.get('cpf')?.errors?.['minlength'] || 
         formCadastro.get('cpf')?.errors?.['maxlength']"
-        class="mensagem-erro"
-      >
-        O CPF deve conter 11 dígitos!
-      </span>
+      class="mensagem-erro"
+    >
+      O CPF deve conter 11 dígitos!
+    </span>
 
-      <span
-        *ngIf="formCadastro.get('cpf')?.errors?.['cpfJaExiste']"
-        class="mensagem-erro"
-      >
-        O CPF informado já foi cadastrado!
-      </span>
+    <span
+      *ngIf="formCadastro.get('cpf')?.errors?.['cpfJaExiste']"
+      class="mensagem-erro"
+    >
+      O CPF informado já foi cadastrado!
+    </span>
     }
   </div>
 
   <div class="input-container date">
     <nz-input-group [nzPrefix]="dateIcon">
-      <input 
-        formControlName="dataNascimento" 
-        type="text" 
-        nz-input placeholder="Data de Nascimento" 
+      <input
+        formControlName="dataNascimento"
+        type="text"
+        nz-input
+        placeholder="Data de Nascimento"
         mask="00/00/0000"
       />
     </nz-input-group>
@@ -127,36 +131,37 @@
       <nz-icon nzType="calendar" nzTheme="outline" />
     </ng-template>
 
-    @if(formCadastro.get('dataNascimento')?.invalid && formCadastro.get('dataNascimento')?.touched) {
-      <span
-        *ngIf="formCadastro.get('dataNascimento')?.errors?.['required']"
-        class="mensagem-erro"
-      >
-        A data de nascimento é obrigatória!
-      </span>
+    @if(formCadastro.get('dataNascimento')?.invalid &&
+    formCadastro.get('dataNascimento')?.touched) {
+    <span
+      *ngIf="formCadastro.get('dataNascimento')?.errors?.['required']"
+      class="mensagem-erro"
+    >
+      A data de nascimento é obrigatória!
+    </span>
 
-      <span
-        *ngIf="formCadastro.get('dataNascimento')?.errors?.['minlength'] || 
+    <span
+      *ngIf="formCadastro.get('dataNascimento')?.errors?.['minlength'] || 
         formCadastro.get('dataNascimento')?.errors?.['maxlength']"
-        class="mensagem-erro"
-      >
-        A data de nascimento deve conter 8 dígitos!
-      </span>
+      class="mensagem-erro"
+    >
+      A data de nascimento deve conter 8 dígitos!
+    </span>
     }
   </div>
 
   <div class="input-container location">
-    <nz-input-group [nzPrefix]="locationIcon">      
-      <nz-select  
+    <nz-input-group [nzPrefix]="locationIcon">
+      <nz-select
         formControlName="estado"
-        nzSize="large" 
+        nzSize="large"
         nzPlaceHolder="UF"
         (ngModelChange)="$event ? listarMunicipios($event) : null"
       >
         @for(estado of estados; track estado.sigla) {
-          <nz-option nzValue="{{ estado.sigla }}" nzLabel="{{ estado.nome }}" />
+        <nz-option nzValue="{{ estado.sigla }}" nzLabel="{{ estado.nome }}" />
         } @empty {
-          <nz-option nzValue="vazio" nzLabel="Não foi possível listar" />
+        <nz-option nzValue="vazio" nzLabel="Não foi possível listar" />
         }
       </nz-select>
 
@@ -164,26 +169,28 @@
         <nz-icon nzType="environment" nzTheme="outline" />
       </ng-template>
     </nz-input-group>
-    
-    @if(formCadastro.get('estado')?.invalid && formCadastro.get('estado')?.touched) {
-      <span class="mensagem-erro">
-        A UF é obrigatória!
-      </span>
+
+    @if(formCadastro.get('estado')?.invalid &&
+    formCadastro.get('estado')?.touched) {
+    <span class="mensagem-erro"> A UF é obrigatória! </span>
     }
   </div>
 
   <div class="input-container location">
-    <nz-input-group [nzPrefix]="cityIcon">      
-      <nz-select 
-      formControlName="municipio" 
-      nzSize="large" 
-      nzPlaceHolder="Município"
-      [nzDisabled]="!formCadastro.get('estado')?.value"
+    <nz-input-group [nzPrefix]="cityIcon">
+      <nz-select
+        formControlName="municipio"
+        nzSize="large"
+        nzPlaceHolder="Município"
+        [nzDisabled]="!formCadastro.get('estado')?.value"
       >
         @for(municipio of municipios; track municipio.codigo_ibge) {
-          <nz-option nzValue="{{ municipio.nome }}" nzLabel="{{ municipio.nome }}" />
+        <nz-option
+          nzValue="{{ municipio.nome }}"
+          nzLabel="{{ municipio.nome }}"
+        />
         } @empty {
-          <nz-option nzValue="vazio" nzLabel="Não foi possível listar" />
+        <nz-option nzValue="vazio" nzLabel="Não foi possível listar" />
         }
       </nz-select>
 
@@ -192,24 +199,30 @@
       </ng-template>
     </nz-input-group>
 
-    @if(formCadastro.get('municipio')?.invalid && formCadastro.get('municipio')?.touched) {
-      <span class="mensagem-erro">
-        O município é obrigatório!
-      </span>
+    @if(formCadastro.get('municipio')?.invalid &&
+    formCadastro.get('municipio')?.touched) {
+    <span class="mensagem-erro"> O município é obrigatório! </span>
     }
   </div>
 
   <div class="action-section">
     @if(atualizandoCliente) {
-      <button type="submit" nz-button nzType="primary" nzSize="large">
-        Atualizar
-      </button>
+    <button type="submit" nz-button nzType="primary" nzSize="large">
+      Atualizar
+    </button>
     } @else {
-      <button type="submit" nz-button nzType="primary" nzSize="large">
-        Salvar
-      </button>
+    <button type="submit" nz-button nzType="primary" nzSize="large">
+      Salvar
+    </button>
     }
-    <button (click)="limparFormulario()" type="button" nz-button nzType="primary" nzSize="large" nzDanger>
+    <button
+      (click)="limparFormulario()"
+      type="button"
+      nz-button
+      nzType="primary"
+      nzSize="large"
+      nzDanger
+    >
       Limpar
     </button>
   </div>

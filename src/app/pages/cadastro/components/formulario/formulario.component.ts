@@ -7,7 +7,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { Cliente } from '../../../../shared/models/cliente.model';
 import { ClienteService } from '../../../../shared/services/cliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BrasilApiService } from '../../../../shared/services/brasil-api.service';
+import { BrasilApiService } from '../../services/brasil-api.service';
 import { Estado } from '../../../../shared/models/estado.model';
 import { Municipio } from '../../../../shared/models/municipio.model';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
@@ -90,8 +90,8 @@ export class FormularioComponent implements OnInit {
     this.brasilApi.listarUFs().subscribe({
       next: listaEstados => {this.estados = listaEstados},
       error: error => {
-        console.error('Erro ao carregar UFs:', error)
-        this.feedback.error('Não foi possível carregar as UFs')
+        console.error('Erro ao tentar listar UFs:', error)
+        this.feedback.error('Não foi possível listar as UFs')
       },
     })
   }
@@ -100,8 +100,8 @@ export class FormularioComponent implements OnInit {
     this.brasilApi.listarMunicipios(uf).subscribe({
       next: listaMunicipios => {this.municipios = listaMunicipios},
       error: error => {
-        console.error('Erro ao carregar municípios:', error)
-        this.feedback.error('Não foi possível carregar os municípios')
+        console.error('Erro ao tentar listar municípios:', error)
+        this.feedback.error('Não foi possível listar os municípios')
       },
     });
   }
