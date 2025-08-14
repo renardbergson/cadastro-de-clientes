@@ -1,35 +1,26 @@
 <nz-header id="header">
   <h1 id="logo">Cadastro de Clientes</h1>
-  <div id="spacer" style="flex: 1;"></div>
+
+  <div id="spacer" style="flex: 1"></div>
+
   <nav id="navBar">
     <ul nz-menu nzTheme="light" nzMode="horizontal">
       <li nz-menu-item routerLinkActive="ant-menu-item-selected">
-        <a routerLink="/consulta">
-          Consulta
-        </a>
+        <a routerLink="/consulta"> Consulta </a>
       </li>
       <li nz-menu-item routerLinkActive="ant-menu-item-selected">
-        <a routerLink="/cadastro">
-          Cadastro
-        </a>
+        <a routerLink="/cadastro"> Cadastro </a>
       </li>
 
       <nz-divider nzType="vertical" />
 
-      <li 
-        nz-submenu 
-        nzIcon="setting" 
-        nzPlacement="topLeft"
-      >
+      <li nz-submenu nzIcon="setting" nzPlacement="topLeft">
         <ul>
           <li (click)="restaure()" nzMatchRouter="true" nz-menu-item>
             <span>Restaurar clientes</span>
           </li>
           <li nzMatchRouter="true" nz-menu-item>
-            <a 
-              href="https://github.com/renardbergson" 
-              target="_blank"
-            >
+            <a href="https://github.com/renardbergson" target="_blank">
               Desenvolvedor
             </a>
           </li>
