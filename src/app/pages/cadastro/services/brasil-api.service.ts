@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BrasilApiRepository } from "../repositories/brasil-api.repository";
+import { BrasilApiRepository } from '../repositories/brasil-api.repository';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BrasilApiService {
-  private readonly urlBase = 'https://brasilapi.com.br/api/';
-
-  constructor(private repository: BrasilApiRepository) { }
+  constructor(private repository: BrasilApiRepository) {}
 
   listarUFs() {
     return this.repository.listarUFs();
