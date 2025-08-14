@@ -13,30 +13,25 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { FormsModule } from '@angular/forms';
 import { formatDateToBR } from '../../../../shared/utils/date.utils';
 
-const FeedbackExcluir = {
-  sucesso: "Cliente removido com sucesso!",
-  erro: "Ocorreu um erro ao remover o cliente!"
-}
-
 @Component({
   selector: 'app-tabela',
   imports: [
-    CommonModule, 
-    NzTableModule, 
-    NzDividerModule, 
-    NzEmptyModule, 
-    NzIconModule, 
-    NzInputModule, 
+    CommonModule,
+    NzTableModule,
+    NzDividerModule,
+    NzEmptyModule,
+    NzIconModule,
+    NzInputModule,
     NzButtonModule,
     FormsModule,
   ],
   templateUrl: './tabela.component.html',
-  styleUrl: './tabela.component.css'
+  styleUrl: './tabela.component.css',
 })
 export class TabelaComponent implements OnInit {
-  listaClientes: Cliente[] = []
+  listaClientes: Cliente[] = [];
   clienteExcluir: Cliente | null = null;
-  nomeBuscar: string = "";
+  nomeBuscar: string = '';
 
   constructor(
     private clienteService: ClienteService,
@@ -49,12 +44,14 @@ export class TabelaComponent implements OnInit {
     this.clienteService.clientesRestaurados$.subscribe(async () => {
       // Esta função é chamada toda vez que o observable é notificado
       this.listaClientes = await this.clienteService.getClientes();
-    })
+    });
   }
 
   async toSearch(): Promise<void> {
-    if(this.nomeBuscar) {
-      const resultado = await this.clienteService.buscarPorNome(this.nomeBuscar);
+    if (this.nomeBuscar) {
+      const resultado = await this.clienteService.buscarPorNome(
+        this.nomeBuscar
+      );
       this.listaClientes = resultado;
       return;
     } else {
@@ -67,7 +64,7 @@ export class TabelaComponent implements OnInit {
   }
 
   toEdit(id: string): void {
-    this.router.navigate(['/cadastro'], { queryParams: { "id": id } });
+    this.router.navigate(['/cadastro'], { queryParams: { id: id } });
   }
 
   toDelete(cliente: Cliente): void {
@@ -78,12 +75,14 @@ export class TabelaComponent implements OnInit {
   }
 
   async delete() {
-    if(this.clienteExcluir) {
-      const novaListaClientes = await this.clienteService.excluir(this.clienteExcluir);
+    if (this.clienteExcluir) {
+      const novaListaClientes = await this.clienteService.excluir(
+        this.clienteExcluir
+      );
       this.listaClientes = novaListaClientes;
-      this.feedback.success(FeedbackExcluir.sucesso);
+      this.feedback.success('Cliente removido com sucesso!');
     } else {
-      this.feedback.error(FeedbackExcluir.erro);
+      this.feedback.error('Erro ao tentar remover cliente');
     }
   }
 }

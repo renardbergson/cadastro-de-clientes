@@ -31,27 +31,25 @@ export class ClienteService {
   }
 
   async buscarPorEmail(email: string): Promise<Cliente | undefined> {
-    return this.buscarPorEmail(email);
+    return this.repository.buscarPorEmail(email);
   }
 
   async buscarPorCpf(cpf: string): Promise<Cliente | undefined> {
     return this.repository.buscarPorCpf(cpf);
   }
 
-  async atualizar(cliente: Cliente): Promise<boolean> {
+  async atualizar(cliente: Cliente): Promise<void> {
     return this.repository.atualizar(cliente);
   }
 
-  async salvar(cliente: Cliente): Promise<boolean> {
-    const operacao = await this.repository.salvar(cliente);
-    if (operacao) {
-      this.quantidadeClientesMudou$.next();
-    }
-    return operacao;
+  async salvar(cliente: Cliente) {
+    this.clientes = await this.repository.salvar(cliente);
+    this.quantidadeClientesMudou$.next();
   }
 
   async excluir(cliente: Cliente): Promise<Cliente[]> {
-    const novaListaClientes = this.repository.excluir(cliente);
+    const novaListaClientes = await this.repository.excluir(cliente);
+    this.clientes = novaListaClientes;
     this.quantidadeClientesMudou$.next();
     return novaListaClientes;
   }
@@ -60,7 +58,7 @@ export class ClienteService {
     this.repository.restaurarClientes();
     this.clientesRestaurados$.next();
     this.quantidadeClientesMudou$.next();
-    // Notifica todos os componentes que estão inscritos no observable
+    // Notifica todos os componentes que estão inscritos nos observables
   }
 
   getTotalClientes() {

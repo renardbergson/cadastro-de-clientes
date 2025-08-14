@@ -7,16 +7,18 @@ import { ClienteService } from '../../shared/services/cliente.service';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
-const FeedbackRestaurar = {
-  sucesso: "Os clientes base foram restaurados!",
-  erro: "Ocorreu um erro ao restaurar os clientes!",
-}
-
 @Component({
   selector: 'app-header',
-  imports: [NzLayoutModule, NzMenuModule, RouterLink, RouterModule, NzIconModule, NzDividerModule],
+  imports: [
+    NzLayoutModule,
+    NzMenuModule,
+    RouterLink,
+    RouterModule,
+    NzIconModule,
+    NzDividerModule,
+  ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
   constructor(
@@ -28,9 +30,9 @@ export class HeaderComponent {
     // inicia a ação do observable e exibe feedbacks
     try {
       await this.clienteService.restaurarClientes();
-      this.feedback.success(FeedbackRestaurar.sucesso);
+      this.feedback.success('Os clientes base foram restaurados!');
     } catch (error) {
-      this.feedback.error(FeedbackRestaurar.erro);
+      this.feedback.error('Ocorreu um erro ao restaurar os clientes!');
     }
   }
 }

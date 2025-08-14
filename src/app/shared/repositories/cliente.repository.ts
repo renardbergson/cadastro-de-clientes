@@ -61,33 +61,29 @@ export class ClienteRepository {
     return clientes.find((c) => c.cpf === cpf);
   }
 
-  async atualizar(cliente: Cliente): Promise<boolean> {
+  async atualizar(cliente: Cliente): Promise<void> {
     try {
       const clientes: Cliente[] = await this.getClientes();
       for (const c of clientes) {
         if (c.id === cliente.id) {
           Object.assign(c, cliente);
           localStorage.setItem('clientes', JSON.stringify(clientes));
-          return true; // encontrou e atualizou
         }
       }
-      return false; // não encontrou
     } catch (error) {
       console.error('Erro ao tentar atualizar cliente:', error);
-      return false;
     }
   }
 
-  async salvar(cliente: Cliente): Promise<boolean> {
+  async salvar(cliente: Cliente): Promise<Cliente[]> {
     try {
       const clientes: Cliente[] = await this.getClientes();
       clientes.push(cliente);
       localStorage.setItem('clientes', JSON.stringify(clientes));
       this.clientes = clientes;
-      return true;
+      return this.clientes;
     } catch (error) {
-      console.error('Erro ao tentar salvar cliente:', error);
-      return false;
+      throw new Error('Erro ao tentar salvar cliente');
     }
   }
 
