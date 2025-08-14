@@ -54,9 +54,9 @@ export class TabelaComponent implements OnInit {
       );
       this.listaClientes = resultado;
       return;
-    } else {
-      this.listaClientes = await this.clienteService.getClientes();
     }
+
+    this.listaClientes = await this.clienteService.getClientes();
   }
 
   formatarData(dataISO: string) {

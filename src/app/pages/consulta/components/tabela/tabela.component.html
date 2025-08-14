@@ -1,18 +1,16 @@
 <form #formPesquisa="ngForm" (ngSubmit)="toSearch()">
-  <nz-input-group 
-    nzSearch 
-    [nzAddOnAfter]="suffixIconButton" 
-    id="search-bar"
-  >
-    <input 
-      type="text" 
-      nzSize="large" 
-      nz-input placeholder="Pesquisar... Ex.: Ana" 
+  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" id="search-bar">
+    <input
+      type="text"
+      nzSize="large"
+      nz-input
+      placeholder="Pesquisar... Ex.: Ana"
       name="nome"
       autocomplete="off"
       [(ngModel)]="nomeBuscar"
+      (ngModelChange)="toSearch()"
     />
-    
+
     <ng-template #suffixIconButton>
       <button type="submit" nz-button nzType="primary" nzSearch nzSize="large">
         <nz-icon nzType="search" />
@@ -21,9 +19,9 @@
   </nz-input-group>
 </form>
 
-<nz-table 
-  #tabelaClientes 
-  [nzData]="listaClientes" 
+<nz-table
+  #tabelaClientes
+  [nzData]="listaClientes"
   [nzNoResult]="noDataTemplate"
   [nzPageSize]="6"
   nzPaginationPosition="top"
@@ -42,29 +40,22 @@
     <tr *ngFor="let cliente of tabelaClientes.data">
       <td>{{ cliente.nome }}</td>
       <td>{{ cliente.email }}</td>
-      <td>{{ 
-        cliente.dataNascimento 
-        ? formatarData(cliente.dataNascimento) 
-        : null 
+      <td>
+        {{
+          cliente.dataNascimento ? formatarData(cliente.dataNascimento) : null
         }}
       </td>
       <td>{{ cliente.municipio }}</td>
       <td>{{ cliente.estado }}</td>
       <td class="actions">
-        <a (click)="cliente.id ? toEdit(cliente.id) : null">
-          Editar
-        </a>
-        
+        <a (click)="cliente.id ? toEdit(cliente.id) : null"> Editar </a>
+
         <nz-divider nzType="vertical" />
 
         @if(clienteExcluir?.id === cliente.id) {
-          <a (click)="delete()">
-            Confirmar
-          </a>
+        <a (click)="delete()"> Confirmar </a>
         } @else {
-          <a (click)="toDelete(cliente)">
-            Excluir
-          </a>
+        <a (click)="toDelete(cliente)"> Excluir </a>
         }
       </td>
     </tr>
@@ -72,7 +63,7 @@
 </nz-table>
 
 <ng-template #noDataTemplate>
-  <div style="text-align: center; padding: 20px;">
+  <div style="text-align: center; padding: 20px">
     <nz-empty [nzNotFoundContent]="null"></nz-empty>
     <p>Nenhum cliente encontrado!</p>
   </div>
