@@ -32,6 +32,7 @@ export class TabelaComponent implements OnInit {
   listaClientes: Cliente[] = [];
   clienteExcluir: Cliente | null = null;
   nomeBuscar: string = '';
+  timer: number | null = null;
 
   constructor(
     private clienteService: ClienteService,
@@ -68,8 +69,10 @@ export class TabelaComponent implements OnInit {
   }
 
   toDelete(cliente: Cliente): void {
+    if (this.timer) clearTimeout(this.timer);
+
     this.clienteExcluir = cliente;
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.clienteExcluir = null;
     }, 5000);
   }
