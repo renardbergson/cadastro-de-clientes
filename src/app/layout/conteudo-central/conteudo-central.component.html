@@ -1,20 +1,23 @@
-<nz-content>
-  <nz-breadcrumb>
-    <nz-breadcrumb-item>
-      @if(obterUrl() === '/consulta') {
-        Total de clientes cadastrados: 
-        <span id="total-clientes">
-          {{ totalClientes }}
-        </span>
-      }
-      @if(obterUrl() === '/cadastro') {
-        Preencha os campos abaixo! *
-      }
-    </nz-breadcrumb-item>
-  </nz-breadcrumb>
-  <div id="inner-content">
-    <router-outlet>
-      <!-- ** Componente Dinâmico ** -->
-    </router-outlet>
-  </div>
-</nz-content>
+<div class="h-full">
+  <nz-content class="h-full px-[50px]">
+    <nz-breadcrumb class="my-4">
+      <nz-breadcrumb-item>
+        @if (obterUrl() === "/consulta") {
+          Total de clientes cadastrados:
+          <span id="total-clientes">
+            {{ totalClientes }}
+          </span>
+        }
+        @if (obterUrl() === "/cadastro") {
+          Preencha os campos abaixo! *
+        }
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div id="inner-content" class="h-full bg-white p-6">
+      <router-outlet>
+        <!-- ** Componente Dinâmico ** -->
+      </router-outlet>
+    </div>
+  </nz-content>
+</div>

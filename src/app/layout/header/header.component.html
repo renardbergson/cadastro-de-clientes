@@ -1,26 +1,36 @@
-<nz-header id="header">
-  <h1 id="logo">Cadastro de Clientes</h1>
+<nz-header id="header" class="flex h-16 items-center bg-white">
+  <h1 id="logo" class="cursor-default text-4xl tracking-[-1px] text-[#1890ff]">
+    Cadastro de Clientes
+  </h1>
 
   <div id="spacer" style="flex: 1"></div>
 
-  <nav id="navBar">
+  <nav id="navBar" class="flex items-center">
     <ul nz-menu nzTheme="light" nzMode="horizontal">
-      <li nz-menu-item routerLinkActive="ant-menu-item-selected">
-        <a routerLink="/consulta"> Consulta </a>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected" class="h-16">
+        <a class="text-base" routerLink="/consulta"> Consulta </a>
       </li>
-      <li nz-menu-item routerLinkActive="ant-menu-item-selected">
-        <a routerLink="/cadastro"> Cadastro </a>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected" class="h-16">
+        <a routerLink="/cadastro" class="text-base"> Cadastro </a>
       </li>
 
       <nz-divider nzType="vertical" />
 
-      <li nz-submenu nzIcon="setting" nzPlacement="topLeft">
+      <li nz-submenu nzPlacement="topLeft" [nzTitle]="submenuTitle">
+        <ng-template #submenuTitle>
+          <span class="text-base"> Opções </span>
+        </ng-template>
+
         <ul>
           <li (click)="restaure()" nzMatchRouter="true" nz-menu-item>
-            <span>Restaurar clientes</span>
+            <a class="text-base"> Restaurar clientes </a>
           </li>
           <li nzMatchRouter="true" nz-menu-item>
-            <a href="https://github.com/renardbergson" target="_blank">
+            <a
+              class="text-base"
+              href="https://github.com/renardbergson"
+              target="_blank"
+            >
               Desenvolvedor
             </a>
           </li>

@@ -36,7 +36,7 @@ export class TabelaComponent implements OnInit {
   constructor(
     private clienteService: ClienteService,
     private router: Router,
-    private feedback: NzMessageService
+    private feedback: NzMessageService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -50,7 +50,7 @@ export class TabelaComponent implements OnInit {
   async toSearch(): Promise<void> {
     if (this.nomeBuscar) {
       const resultado = await this.clienteService.buscarPorNome(
-        this.nomeBuscar
+        this.nomeBuscar,
       );
       this.listaClientes = resultado;
       return;
@@ -77,7 +77,7 @@ export class TabelaComponent implements OnInit {
   async delete() {
     if (this.clienteExcluir) {
       const novaListaClientes = await this.clienteService.excluir(
-        this.clienteExcluir
+        this.clienteExcluir,
       );
       this.listaClientes = novaListaClientes;
       this.feedback.success('Cliente removido com sucesso!');

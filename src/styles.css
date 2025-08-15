@@ -1,3 +1,4 @@
+// CSS Global
 @import "ng-zorro-antd/ng-zorro-antd.min.css";
 @tailwind base;
 @tailwind components;

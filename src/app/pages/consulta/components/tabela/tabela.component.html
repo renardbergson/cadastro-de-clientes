@@ -1,8 +1,9 @@
-<form #formPesquisa="ngForm" (ngSubmit)="toSearch()">
+<form #formPesquisa="ngForm" (ngSubmit)="toSearch()" class="mx-auto w-[30%]">
   <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" id="search-bar">
     <input
       type="text"
-      nzSize="large"
+      class="h-[32px] rounded-md text-base"
+      nzSize="small"
       nz-input
       placeholder="Pesquisar... Ex.: Ana"
       name="nome"
@@ -12,12 +13,23 @@
     />
 
     <ng-template #suffixIconButton>
-      <button type="submit" nz-button nzType="primary" nzSearch nzSize="large">
+      <button
+        type="submit"
+        nz-button
+        class="h-[32px]"
+        nzType="primary"
+        nzSearch
+        nzSize="default"
+      >
         <nz-icon nzType="search" />
       </button>
     </ng-template>
   </nz-input-group>
 </form>
+
+@if (!listaClientes.length) {
+  <div id="emptySpace" class="h-16"></div>
+}
 
 <nz-table
   #tabelaClientes
@@ -25,6 +37,8 @@
   [nzNoResult]="noDataTemplate"
   [nzPageSize]="6"
   nzPaginationPosition="top"
+  nzShowPagination="true"
+  nzpagina
 >
   <thead>
     <tr>
@@ -47,15 +61,15 @@
       </td>
       <td>{{ cliente.municipio }}</td>
       <td>{{ cliente.estado }}</td>
-      <td class="actions">
+      <td class="w-44">
         <a (click)="cliente.id ? toEdit(cliente.id) : null"> Editar </a>
 
-        <nz-divider nzType="vertical" />
+        <nz-divider nzType="vertical" class="mx-[15px]" />
 
-        @if(clienteExcluir?.id === cliente.id) {
-        <a (click)="delete()"> Confirmar </a>
+        @if (clienteExcluir?.id === cliente.id) {
+          <a (click)="delete()"> Confirmar </a>
         } @else {
-        <a (click)="toDelete(cliente)"> Excluir </a>
+          <a (click)="toDelete(cliente)"> Excluir </a>
         }
       </td>
     </tr>
