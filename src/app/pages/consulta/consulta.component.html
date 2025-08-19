@@ -1,1 +1,76 @@
-<app-tabela />
+<div>
+  <app-tabela (clienteSelecionado)="abrirModal($event)" />
+  <app-modal
+    [clienteMostrar]="clienteSelecionado"
+    [isVisible]="modalVisivel"
+    (nzOnOk)="fecharModal()"
+    (pleaseCloseModal)="fecharModal()"
+  />
+
+  <!-- 
+    FLUXO:
+
+    1 - Quando houver um click sobre o ícone "file-search", TabelaComponent 
+    chama seu método "showMore", passando o cliente da vez na tabela como argumento 
+    para ele.
+
+    2 - O método "showMore" atribui à propriedade/evento "clienteSelecionado" de 
+    TabelaComponent o valor recebido (cliente da vez). Essa propriedade é do tipo 
+    EventEmiter. 
+    
+    PS: EventEmiter e emit são usados pelo Angular para comunicação entre componentes 
+    (filho -> pai)
+
+    3 - O método showMore emite o evento clienteSelecionado (clienteSelecionado.emit()) 
+    passando o valor guardado no passo 2 como payload.
+
+    4 - O componente pai, ConsultaComponent, escuta o evento "clienteSelecionado" de <app-tabela>.
+    
+    PS: É importante notar que, para escutar o evento, foi usada a sintaxe de parênteses,
+    que é o padrão usado para ler eventos ou propriedades de saída em Angular.
+
+    5 - Então, o método "abrirModal" do componente pai recebe o cliente selecionado
+    através da sintaxe "$event", que representa o payload.
+
+    6 - O componente pai também possui uma propriedade chamada "clienteSelecionado", que é 
+    do tipo Cliente | null e a essa propriedade é atribuído o valor recebido pelo método 
+    "abrirModal" no passo 5.
+
+    7 - O segundo elemento filho (modal) possui uma propriedade chamada "clienteMostrar",
+    e ela recebe o valor guardado na propriedade do pai "clienteSelecionado", processo que 
+    foi feito no passo 6. 
+    
+    PS: Perceba que agora, para atribuir foi usada a sintaxe de colchetes, que é o padrão 
+    usado para atribuir valores de entrada em Angular.
+
+    PS: Os passos 4 e 7 referem-se à mesma propriedade do pai, "clienteSelecionado", mas o 
+    passo 4 lê um valor e o atribui a ela, enquanto o passo 7 pega o valor atribuido e o 
+    repassa para outro componente filho (modal).
+
+    8 - O componente Modal possui duas propriedade de entrada (@Input), "cliente", 
+    que recebeu seu valor no passo 7 e outra chamada "isVisible", que controla abertura e 
+    fechamento. Ou seja, por serem propriedades de entrada, elas não são controladas pelo 
+    próprio Modal, mas pelo seu elemento pai.
+
+    9 - No elemento pai, foi usado colchetes para atribuir valores às duas propriedades
+    de entrada do Modal citadas no passo 8. O pai tem uma propriedade chamada "modalVisivel" 
+    e mais dois métodos, "abrirModal" e "fecharModal", que mudam os valores de "modalVisivel" 
+    para true ou false, respectivamente.
+    
+    PS: Para ambos os propósitos, o valor de "modalVisivel" está sendo passada como 
+    controle para o Modal.
+    
+    10 - No modal há um valor de saída (@Output) chamado convenientemente de "pleaseCloseModal", 
+    que nada mais é do que um EventEmitter. 
+    
+    11 - Quando houver um click no botão "Fechar/Ok" do Modal, seu próprio método "closeModal" 
+    será chamado, emitindo o aviso que ocorre no passo 10, o que manda um sinal ao elemento pai de 
+    que o Modal deve ser fechado.
+    
+    PS: Como dito anteriormente, o Modal não controlará a abertura ou fechamento de si mesmo.
+    
+    12 - Usando parênteses, o elemento pai está escutando o evento "pleaseCloseModal" e, quando o aviso é 
+    emitido, o pai chama seu próprio método "fecharModal", que muda o valor de "modalVisivel" para false, 
+    o que resulta no fechamento do Modal.
+  -->
+</div>

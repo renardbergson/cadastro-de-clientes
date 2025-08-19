@@ -1,0 +1,20 @@
+<div>
+  <nz-modal
+    [nzVisible]="isVisible"
+    nzTitle="Dados do Cliente"
+    [nzCancelText]="null"
+    [nzClosable]="false"
+    nzOkText="Fechar"
+    (nzOnOk)="handleOk()"
+  >
+    <ng-container *nzModalContent>
+      <p>Nome: {{ clienteMostrar?.nome }}</p>
+      <p>E-mail: {{ clienteMostrar?.email }}</p>
+      <p>
+        Data de Nascimento: {{ formatarData(clienteMostrar?.dataNascimento!) }}
+      </p>
+      <p>Cidade: {{ clienteMostrar?.municipio }}</p>
+      <p>Estado: {{ clienteMostrar?.estado }}</p>
+    </ng-container>
+  </nz-modal>
+</div>

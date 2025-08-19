@@ -51,7 +51,7 @@ export class FormularioComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private feedback: NzMessageService,
-    private brasilApi: BrasilApiService
+    private brasilApi: BrasilApiService,
   ) {}
 
   ngOnInit() {
@@ -59,12 +59,12 @@ export class FormularioComponent implements OnInit {
     this.formCadastro
       .get('email')
       ?.setAsyncValidators(
-        verificarSeEmailExiste(this.cliente, this.clienteService)
+        verificarSeEmailExiste(this.cliente, this.clienteService),
       );
     this.formCadastro
       .get('cpf')
       ?.setAsyncValidators(
-        verificarSeCpfExiste(this.cliente, this.clienteService)
+        verificarSeCpfExiste(this.cliente, this.clienteService),
       );
     this.verificarQueryParams();
     this.listarUFs();
@@ -80,13 +80,11 @@ export class FormularioComponent implements OnInit {
           if (clienteEditar) {
             this.atualizandoCliente = true;
             Object.assign(this.cliente, clienteEditar);
-            this.cliente.dataNascimento
-              ? formatDateToBR(this.cliente.dataNascimento)
-              : null;
+            this.listarMunicipios(this.cliente.estado!);
+            this.cliente.dataNascimento = formatDateToBR(
+              this.cliente.dataNascimento!,
+            );
             this.formCadastro.patchValue(this.cliente);
-            this.cliente.estado
-              ? this.listarMunicipios(this.cliente.estado)
-              : null;
           } else {
             throw new Error('Erro ao carregar dados do cliente');
           }
@@ -164,7 +162,7 @@ export class FormularioComponent implements OnInit {
     } catch (error) {
       console.error(error);
       this.feedback.error(
-        'Ocorreu um erro ao tentar inserir o cliente: ' + error
+        'Ocorreu um erro ao tentar inserir o cliente: ' + error,
       );
     }
   }

@@ -1,11 +1,29 @@
-<nz-header id="header" class="flex h-16 items-center bg-white">
-  <h1 id="logo" class="cursor-default text-4xl tracking-[-1px] text-[#1890ff]">
+<nz-header
+  id="header"
+  class="flex h-16 items-center bg-white px-6 md:px-8 lg:px-12"
+>
+  <h1
+    id="logo"
+    class="cursor-default text-3xl tracking-[-1px] text-[#1890ff] lg:text-4xl"
+  >
     Cadastro de Clientes
   </h1>
 
+  <!-- Espaço em branco -->
   <div id="spacer" style="flex: 1"></div>
 
-  <nav id="navBar" class="flex items-center">
+  <!-- Hamburger Menu -->
+  <button
+    class="!w-fit text-[#1890ff] lg:hidden"
+    nz-button
+    nzType="text"
+    nzSize="large"
+  >
+    <nz-icon nzType="menu" nzTheme="outline" />
+  </button>
+
+  <!-- Default Menu -->
+  <nav id="navBar" class="hidden items-center md:hidden lg:!flex">
     <ul nz-menu nzTheme="light" nzMode="horizontal">
       <li nz-menu-item routerLinkActive="ant-menu-item-selected" class="h-16">
         <a class="text-base" routerLink="/consulta"> Consulta </a>
@@ -13,8 +31,6 @@
       <li nz-menu-item routerLinkActive="ant-menu-item-selected" class="h-16">
         <a routerLink="/cadastro" class="text-base"> Cadastro </a>
       </li>
-
-      <nz-divider nzType="vertical" />
 
       <li nz-submenu nzPlacement="topLeft" [nzTitle]="submenuTitle">
         <ng-template #submenuTitle>

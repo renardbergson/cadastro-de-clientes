@@ -3,15 +3,17 @@ import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
-import { 
-  UserOutline, 
-  MailOutline, 
-  IdcardOutline, 
-  CalendarOutline, 
-  EnvironmentOutline, 
-  VerifiedOutline, 
-  SearchOutline, 
-  SettingOutline
+import {
+  UserOutline,
+  MailOutline,
+  IdcardOutline,
+  CalendarOutline,
+  EnvironmentOutline,
+  VerifiedOutline,
+  SearchOutline,
+  SettingOutline,
+  MenuOutline,
+  FileSearchOutline,
 } from '@ant-design/icons-angular/icons';
 
 import { routes } from './app.routes';
@@ -23,14 +25,16 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(),
     provideNzIcons([
-      UserOutline, 
-      MailOutline, 
-      IdcardOutline, 
-      CalendarOutline, 
-      EnvironmentOutline, 
-      VerifiedOutline, 
-      SearchOutline, 
-      SettingOutline
-    ])
-  ]
+      UserOutline,
+      MailOutline,
+      IdcardOutline,
+      CalendarOutline,
+      EnvironmentOutline,
+      VerifiedOutline,
+      SearchOutline,
+      SettingOutline,
+      MenuOutline,
+      FileSearchOutline,
+    ]),
+  ],
 };

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -29,6 +29,8 @@ import { formatDateToBR } from '../../../../shared/utils/date.utils';
   styleUrl: './tabela.component.css',
 })
 export class TabelaComponent implements OnInit {
+  @Output() clienteSelecionado = new EventEmitter<Cliente>();
+
   listaClientes: Cliente[] = [];
   clienteExcluir: Cliente | null = null;
   nomeBuscar: string = '';
@@ -62,6 +64,10 @@ export class TabelaComponent implements OnInit {
 
   formatarData(dataISO: string) {
     return formatDateToBR(dataISO);
+  }
+
+  showMore(cliente: Cliente) {
+    this.clienteSelecionado.emit(cliente);
   }
 
   toEdit(id: string): void {

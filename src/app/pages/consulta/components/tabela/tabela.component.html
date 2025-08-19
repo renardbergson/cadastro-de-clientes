@@ -1,4 +1,8 @@
-<form #formPesquisa="ngForm" (ngSubmit)="toSearch()" class="mx-auto w-[30%]">
+<form
+  class="mx-auto w-[60%] sm:w-[50%] md:w-[40%] lg:w-[30%] xl:w-[20%]"
+  #formPesquisa="ngForm"
+  (ngSubmit)="toSearch()"
+>
   <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton" id="search-bar">
     <input
       type="text"
@@ -32,6 +36,7 @@
 }
 
 <nz-table
+  class="w-full table-fixed overflow-hidden whitespace-nowrap"
   #tabelaClientes
   [nzData]="listaClientes"
   [nzNoResult]="noDataTemplate"
@@ -42,34 +47,67 @@
 >
   <thead>
     <tr>
-      <th>Nome</th>
-      <th>E-mail</th>
-      <th>Data de Nascimento</th>
-      <th>Cidade</th>
-      <th>Estado</th>
+      <th class="truncate whitespace-nowrap">Nome</th>
+      <th class="hidden truncate whitespace-nowrap sm:table-cell">E-mail</th>
+      <th class="hidden lg:table-cell">Data de Nascimento</th>
+      <th class="hidden truncate whitespace-nowrap md:table-cell">Cidade</th>
+      <th class="hidden sm:table-cell">Estado</th>
       <th>Ações</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let cliente of tabelaClientes.data">
-      <td>{{ cliente.nome }}</td>
-      <td>{{ cliente.email }}</td>
-      <td>
+      <td class="max-w-20 truncate whitespace-nowrap sm:max-w-24">
+        {{ cliente.nome }}
+      </td>
+      <td class="hidden max-w-24 truncate whitespace-nowrap sm:table-cell">
+        {{ cliente.email }}
+      </td>
+      <td class="hidden w-8 truncate whitespace-nowrap lg:table-cell">
         {{
           cliente.dataNascimento ? formatarData(cliente.dataNascimento) : null
         }}
       </td>
-      <td>{{ cliente.municipio }}</td>
-      <td>{{ cliente.estado }}</td>
-      <td class="w-44">
-        <a (click)="cliente.id ? toEdit(cliente.id) : null"> Editar </a>
+      <td class="hidden max-w-8 truncate whitespace-nowrap md:table-cell">
+        {{ cliente.municipio }}
+      </td>
+      <td class="hidden w-8 sm:table-cell">{{ cliente.estado }}</td>
+      <td class="w-[10%] lg:w-44">
+        <!-- mostrar mais -->
+        <button class="lg:hidden" (click)="showMore(cliente)">
+          <nz-icon nzType="file-search" nzTheme="outline" />
+        </button>
+
+        <nz-divider nzType="vertical" class="mx-[15px] lg:hidden" />
+
+        <!-- editar -->
+        <a (click)="cliente.id && toEdit(cliente.id!)" class="hidden lg:inline">
+          Editar
+        </a>
+
+        <a (click)="cliente.id && toEdit(cliente.id!)" class="lg:hidden"
+          ><nz-icon nzType="edit" nzTheme="outline"
+        /></a>
 
         <nz-divider nzType="vertical" class="mx-[15px]" />
 
+        <!-- excluir / confirmar -->
         @if (clienteExcluir?.id === cliente.id) {
-          <a (click)="delete()"> Confirmar </a>
+          <!-- Texto -->
+          <button (click)="delete()" class="hidden lg:inline">Confirmar</button>
+          <!-- Ícone -->
+          <button (click)="delete()" class="lg:hidden">
+            <nz-icon nzType="close" nzTheme="outline" />
+          </button>
         } @else {
-          <a (click)="toDelete(cliente)"> Excluir </a>
+          <!-- Texto -->
+          <button (click)="toDelete(cliente)" class="hidden lg:inline">
+            Excluir
+          </button>
+          <!-- Íxone -->
+          <button (click)="toDelete(cliente)" class="lg:hidden">
+            <nz-icon nzType="delete" nzTheme="outline" />
+          </button>
         }
       </td>
     </tr>

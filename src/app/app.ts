@@ -11,15 +11,15 @@ import { FooterComponent } from './layout/footer/footer.component';
   selector: 'app-root',
   imports: [
     RouterModule,
-    NzLayoutModule, 
-    NzIconModule, 
+    NzLayoutModule,
+    NzIconModule,
     NzMenuModule,
     HeaderComponent,
     ConteudoCentralComponent,
     FooterComponent,
   ],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected title = 'cadastro-de-clientes';

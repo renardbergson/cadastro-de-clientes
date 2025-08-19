@@ -4,8 +4,8 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { RouterLink, RouterModule } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ClienteService } from '../../shared/services/cliente.service';
-import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +15,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     RouterLink,
     RouterModule,
     NzIconModule,
-    NzDividerModule,
+    NzIconModule,
+    NzButtonModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
@@ -23,7 +24,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class HeaderComponent {
   constructor(
     private clienteService: ClienteService,
-    private feedback: NzMessageService
+    private feedback: NzMessageService,
   ) {}
 
   async restaure() {
