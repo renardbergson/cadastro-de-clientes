@@ -18,9 +18,17 @@
     nz-button
     nzType="text"
     nzSize="large"
+    (click)="openDrawer()"
   >
     <nz-icon nzType="menu" nzTheme="outline" />
   </button>
+
+  <!-- Drawer -->
+  <app-drawer
+    [isVisible]="isDrawerVisible"
+    (pleaseRestaureClients)="restaure()"
+    (pleaseCloseDrawer)="closeDrawer()"
+  />
 
   <!-- Default Menu -->
   <nav id="navBar" class="hidden items-center md:hidden lg:!flex">

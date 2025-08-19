@@ -1,0 +1,58 @@
+<div>
+  <!-- <button nz-button nzType="primary" (click)="open()">Open</button> -->
+  <nz-drawer
+    [nzClosable]="true"
+    [nzVisible]="isVisible"
+    nzPlacement="right"
+    (nzOnClose)="closeDrawer()"
+    [nzWidth]="300"
+    nzCloseOnNavigation="true"
+  >
+    <ng-container *nzDrawerContent>
+      <ul class="space-y-5 text-right">
+        <li>
+          <nz-anchor>
+            <a
+              (click)="closeDrawer()"
+              class="text-lg font-bold"
+              routerLink="/consulta"
+              >Consulta</a
+            >
+          </nz-anchor>
+        </li>
+        <li>
+          <nz-anchor>
+            <a
+              (click)="closeDrawer()"
+              class="text-lg font-bold"
+              routerLink="/cadastro"
+              >Cadastro</a
+            >
+          </nz-anchor>
+        </li>
+        <li>
+          <nz-anchor>
+            <button
+              (click)="restaureClients(); closeDrawer()"
+              class="text-lg font-bold"
+            >
+              Restaurar Clientes
+            </button>
+          </nz-anchor>
+        </li>
+        <li>
+          <nz-anchor>
+            <a
+              (click)="closeDrawer()"
+              class="text-lg font-bold"
+              href="https://github.com/renardbergson"
+              target="_blank"
+            >
+              Desenvolvedor
+            </a>
+          </nz-anchor>
+        </li>
+      </ul>
+    </ng-container>
+  </nz-drawer>
+</div>

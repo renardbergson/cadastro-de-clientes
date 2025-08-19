@@ -6,6 +6,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ClienteService } from '../../shared/services/cliente.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { DrawerComponent } from './components/drawer/drawer.component';
 
 @Component({
   selector: 'app-header',
@@ -17,11 +18,14 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
     NzIconModule,
     NzIconModule,
     NzButtonModule,
+    DrawerComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
+  isDrawerVisible: boolean = false;
+
   constructor(
     private clienteService: ClienteService,
     private feedback: NzMessageService,
@@ -35,5 +39,13 @@ export class HeaderComponent {
     } catch (error) {
       this.feedback.error('Ocorreu um erro ao restaurar os clientes!');
     }
+  }
+
+  openDrawer() {
+    this.isDrawerVisible = true;
+  }
+
+  closeDrawer() {
+    this.isDrawerVisible = false;
   }
 }
