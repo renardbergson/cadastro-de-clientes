@@ -5,16 +5,14 @@
 >
   <h2 class="mb-5 cursor-default text-2xl text-[#1890ff]">Dados Pessoais</h2>
 
-  <div class="relative mb-8">
-    <nz-input-group
-      [nzPrefix]="userIcon"
-      class="w-[60%] rounded-md p-2 text-base"
-    >
+  <div class="relative mb-8 w-full sm:w-[50%]">
+    <nz-input-group [nzPrefix]="userIcon" class="rounded-md p-2 text-base">
       <input
         formControlName="nome"
         type="text"
         nz-input
         placeholder="Nome Completo"
+        class="truncate"
       />
     </nz-input-group>
 
@@ -41,16 +39,14 @@
     }
   </div>
 
-  <div class="relative mb-8">
-    <nz-input-group
-      [nzPrefix]="mailIcon"
-      class="w-[60%] rounded-md p-2 text-base"
-    >
+  <div class="relative mb-8 w-full sm:w-[50%]">
+    <nz-input-group [nzPrefix]="mailIcon" class="rounded-md p-2 text-base">
       <input
         formControlName="email"
         type="email"
         nz-input
         placeholder="E-mail"
+        class="truncate"
       />
     </nz-input-group>
 
@@ -84,11 +80,8 @@
     }
   </div>
 
-  <div class="relative mb-8">
-    <nz-input-group
-      [nzPrefix]="cpfIcon"
-      class="w-[60%] rounded-md p-2 text-base"
-    >
+  <div class="relative mb-8 w-full sm:w-[35%]">
+    <nz-input-group [nzPrefix]="cpfIcon" class="rounded-md p-2 text-base">
       <input
         formControlName="cpf"
         type="text"
@@ -129,11 +122,8 @@
     }
   </div>
 
-  <div class="relative mb-8 w-[50%]">
-    <nz-input-group
-      [nzPrefix]="dateIcon"
-      class="w-[60%] rounded-md p-2 text-base"
-    >
+  <div class="relative mb-8 w-full sm:w-[35%]">
+    <nz-input-group [nzPrefix]="dateIcon" class="rounded-md p-2 text-base">
       <input
         formControlName="dataNascimento"
         type="text"
@@ -170,20 +160,23 @@
     }
   </div>
 
-  <div class="relative mb-8 w-[50%]">
+  <div class="relative mb-8 w-full sm:w-[35%]">
     <nz-input-group
       [nzPrefix]="locationIcon"
-      class="w-[60%] rounded-md p-[5px] text-base"
+      class="rounded-md p-[5px] text-base"
     >
       <nz-select
         formControlName="estado"
         nzSize="large"
-        class="w-full"
+        class="w-full truncate"
         nzPlaceHolder="UF"
         (ngModelChange)="$event ? listarMunicipios($event) : null"
       >
         @for (estado of estados; track estado.sigla) {
-          <nz-option nzValue="{{ estado.sigla }}" nzLabel="{{ estado.nome }}" />
+          <nz-option
+            nzValue="{{ estado.sigla }}"
+            nzLabel="{{ estado.sigla }} - {{ estado.nome }}"
+          />
         } @empty {
           <nz-option nzValue="vazio" nzLabel="Não foi possível listar" />
         }
@@ -203,15 +196,12 @@
     }
   </div>
 
-  <div class="relative mb-8 w-[50%]">
-    <nz-input-group
-      [nzPrefix]="cityIcon"
-      class="w-[60%] rounded-md p-[5px] text-base"
-    >
+  <div class="relative mb-8 w-full sm:w-[35%]">
+    <nz-input-group [nzPrefix]="cityIcon" class="rounded-md p-[5px] text-base">
       <nz-select
         formControlName="municipio"
         nzSize="large"
-        class="w-full"
+        class="w-full truncate"
         nzPlaceHolder="Município"
         [nzDisabled]="!formCadastro.get('estado')?.value"
       >
@@ -240,14 +230,14 @@
     }
   </div>
 
-  <div class="mt-10 flex gap-5">
+  <div class="mt-10 flex justify-center gap-6 sm:justify-start">
     @if (atualizandoCliente) {
       <button
         type="submit"
         nz-button
         nzType="primary"
-        nzSize="large"
-        class="px-8"
+        nzSize="default"
+        class="grid place-content-center px-6 py-4 text-base"
       >
         Atualizar
       </button>
@@ -256,8 +246,8 @@
         type="submit"
         nz-button
         nzType="primary"
-        nzSize="large"
-        class="px-8"
+        nzSize="default"
+        class="grid place-content-center px-6 py-4 text-base"
       >
         Salvar
       </button>
@@ -267,9 +257,9 @@
       type="button"
       nz-button
       nzType="primary"
-      nzSize="large"
+      nzSize="default"
       nzDanger
-      class="px-8"
+      class="grid place-content-center px-6 py-4 text-base"
     >
       Limpar
     </button>
