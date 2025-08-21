@@ -127,12 +127,14 @@ export class ClienteRepository {
   }
 
   async excluir(cliente: Cliente): Promise<Cliente[]> {
-    const clientes: Cliente[] = await this.getClientes();
-    const novaListaClientes: Cliente[] = clientes.filter((c) => {
-      return c.id !== cliente.id;
-    });
-    localStorage.setItem('clientes', JSON.stringify(novaListaClientes));
-    this.clientes = novaListaClientes;
-    return novaListaClientes;
+    try {
+      const clientesDocRef = doc(this.firestore, 'clientes', cliente.id!);
+      await deleteDoc(clientesDocRef);
+
+      return await this.getClientes();
+    } catch (error) {
+      console.error('Erro ao tentar excluir cliente', error);
+      throw new Error('Erro ao tentar excluir cliente');
+    }
   }
 }
