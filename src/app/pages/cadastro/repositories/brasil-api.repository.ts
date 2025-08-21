@@ -21,12 +21,12 @@ export class BrasilApiRepository {
         } else {
           throw new Error('Erro ao tentar acessar API externa!');
         }
-      })
+      }),
     );
   }
 
   listarMunicipios(uf: string): Observable<Municipio[]> {
-    const endpoint = `ibge/municipios/v1/${uf}`;
+    const endpoint = `ibge/municipios/v1/${uf}?providers=dados-abertos-br,gov,wikipedia`;
     return this.http.get<Municipio[]>(this.urlBase + endpoint).pipe(
       map((data) => {
         if (data) {
@@ -34,7 +34,7 @@ export class BrasilApiRepository {
         } else {
           throw new Error('Erro ao tentar acessar API externa!');
         }
-      })
+      }),
     );
   }
 }

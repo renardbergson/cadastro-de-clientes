@@ -52,12 +52,20 @@ export class ClienteRepository {
   }
 
   async getClientes(): Promise<Cliente[]> {
-    const clientesRef = collection(this.firestore, 'clientes');
-    const firebaseClientes = await firstValueFrom(
-      collectionData(clientesRef, { idField: 'id' }),
-    );
-    this.clientes = firebaseClientes;
-    return this.clientes;
+    try {
+      const clientesRef = collection(this.firestore, 'clientes');
+      const firebaseClientes = await firstValueFrom(
+        collectionData(clientesRef, { idField: 'id' }),
+      );
+      this.clientes = firebaseClientes;
+      return this.clientes;
+    } catch (error) {
+      console.error(
+        'Erro ao tentar obter os clientes do banco de dados!',
+        error,
+      );
+      throw new Error('Erro ao tentar obter os clientes do banco de dados!');
+    }
   }
 
   async buscarPorID(id: string): Promise<Cliente | undefined> {
@@ -102,13 +110,19 @@ export class ClienteRepository {
 
   async salvar(cliente: Cliente): Promise<Cliente[]> {
     try {
-      const clientes: Cliente[] = await this.getClientes();
-      clientes.push(cliente);
-      localStorage.setItem('clientes', JSON.stringify(clientes));
-      this.clientes = clientes;
-      return this.clientes;
+      const clientesRef = collection(this.firestore, 'clientes');
+      await addDoc(clientesRef, { ...cliente });
+      /* 
+        Instâncias de classe (como Cliente) podem conter métodos, propriedades privadas, protótipos e outros metadados que o Firestore não consegue serializar corretamente.
+        
+        O Firestore espera receber um objeto puro (apenas dados, sem métodos ou protótipos).
+        
+        O spread operator cria um novo objeto contendo apenas as propriedades enumeráveis do cliente, descartando métodos e protótipos.
+      */
+      return await this.getClientes();
     } catch (error) {
-      throw new Error('Erro ao tentar salvar cliente');
+      console.error('Erro ao tentar inserir cliente', error);
+      throw new Error('Erro ao tentar inserir cliente');
     }
   }
 

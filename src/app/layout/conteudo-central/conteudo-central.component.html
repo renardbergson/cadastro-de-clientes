@@ -18,7 +18,13 @@
       }
       <!-- Tela de Cadastro -->
       @if (obterUrl() === "/cadastro") {
-        <p>Preencha os campos abaixo! *</p>
+        @if (inserindoCliente) {
+          <p class="flex items-center">
+            Inserindo cliente... <app-spin class="ml-4" />
+          </p>
+        } @else {
+          <p>Preencha os campos abaixo! *</p>
+        }
       }
     </div>
 

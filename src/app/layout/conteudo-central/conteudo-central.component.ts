@@ -11,7 +11,8 @@ import { SpinComponent } from './components/spin/spin.component';
   styleUrl: './conteudo-central.component.css',
 })
 export class ConteudoCentralComponent implements OnInit {
-  public restaurandoClientes: boolean = false;
+  inserindoCliente: boolean = false;
+  restaurandoClientes: boolean = false;
   totalClientes?: number;
 
   constructor(
@@ -20,6 +21,10 @@ export class ConteudoCentralComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.clienteService.inserindoCliente$.subscribe(
+      (valor) => (this.inserindoCliente = valor),
+    );
+
     this.clienteService.restaurandoClientes$.subscribe(
       (valor) => (this.restaurandoClientes = valor),
     );

@@ -12,12 +12,10 @@ export class ClienteService {
 
   constructor(private repository: ClienteRepository) {}
 
+  public inserindoCliente$ = new BehaviorSubject<boolean>(false);
   public restaurandoClientes$ = new BehaviorSubject<boolean>(false);
-  // Observable para indicar que os clientes estão sendo restaurados
   clientesRestaurados$ = new Subject<void>();
-  // Observable para notificar a restauração dos clientes
   quantidadeClientesMudou$ = new Subject<void>();
-  // Observable para notificar a mudança na quantidade de clientes
 
   async getClientes(): Promise<Cliente[]> {
     this.clientes = await this.repository.getClientes();
@@ -46,8 +44,10 @@ export class ClienteService {
   }
 
   async salvar(cliente: Cliente) {
+    this.inserindoCliente$.next(true);
     this.clientes = await this.repository.salvar(cliente);
     this.quantidadeClientesMudou$.next();
+    this.inserindoCliente$.next(false);
   }
 
   async excluir(cliente: Cliente): Promise<Cliente[]> {
