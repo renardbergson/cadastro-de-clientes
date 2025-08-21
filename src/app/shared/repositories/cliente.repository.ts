@@ -2,6 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Cliente } from '../models/cliente.model';
 import { firstValueFrom } from 'rxjs';
+import {
+  Firestore,
+  collection,
+  addDoc,
+  collectionData,
+  getDocs,
+  deleteDoc,
+} from '@angular/fire/firestore';
+import { doc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -9,36 +18,52 @@ import { firstValueFrom } from 'rxjs';
 export class ClienteRepository {
   private clientes: Cliente[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private firestore: Firestore,
+  ) {}
 
-  private async handleDatabase(): Promise<void> {
-    const dados: string | null = localStorage.getItem('clientes');
+  async restaurarClientes(): Promise<void> {
+    try {
+      // 0. Referencia a coleção no firebase
+      const clientesCollection = collection(this.firestore, 'clientes');
 
-    if (dados) {
-      this.clientes = await JSON.parse(dados);
-      return;
+      // 1. Busca todos os documentos da coleção
+      const allDocuments = await getDocs(clientesCollection);
+
+      // 2. Exclui cada documento da coleção
+      for (const document of allDocuments.docs) {
+        await deleteDoc(doc(this.firestore, 'clientes', document.id));
+      }
+
+      // 3. Carrega os dados de clientes.json (local)
+      const clientes: Cliente[] = await firstValueFrom(
+        this.http.get<Cliente[]>('assets/data/clientes.json'),
+      );
+
+      // 4. Popula a coleção com os dados de clientes.json
+      for (const cliente of clientes) {
+        await addDoc(clientesCollection, cliente);
+      }
+    } catch (error) {
+      console.error('Erro ao tentar restaurar clientes:', error);
+      throw new Error('Erro ao tentar restaurar clientes');
     }
-
-    await this.setClientes();
-  }
-
-  private async setClientes(): Promise<void> {
-    const data: Cliente[] = await firstValueFrom(
-      this.http.get<Cliente[]>('assets/data/clientes.json')
-    );
-    localStorage.setItem('clientes', JSON.stringify(data));
-    this.clientes = data;
   }
 
   async getClientes(): Promise<Cliente[]> {
-    await this.handleDatabase();
+    const clientesRef = collection(this.firestore, 'clientes');
+    const firebaseClientes = await firstValueFrom(
+      collectionData(clientesRef, { idField: 'id' }),
+    );
+    this.clientes = firebaseClientes;
     return this.clientes;
   }
 
   async buscarPorID(id: string): Promise<Cliente | undefined> {
     const clientes: Cliente[] = await this.getClientes();
     const clienteEditar: Cliente | undefined = clientes.find(
-      (cliente) => cliente.id === id
+      (cliente) => cliente.id === id,
     );
     return clienteEditar;
   }
@@ -46,7 +71,7 @@ export class ClienteRepository {
   async buscarPorNome(nome: string): Promise<Cliente[] | []> {
     const clientes: Cliente[] = await this.getClientes();
     const resultado: Cliente[] | [] = clientes.filter((c) =>
-      c.nome?.toLocaleLowerCase().includes(nome.toLocaleLowerCase())
+      c.nome?.toLocaleLowerCase().includes(nome.toLocaleLowerCase()),
     );
     return resultado;
   }
@@ -95,11 +120,5 @@ export class ClienteRepository {
     localStorage.setItem('clientes', JSON.stringify(novaListaClientes));
     this.clientes = novaListaClientes;
     return novaListaClientes;
-  }
-
-  async restaurarClientes(): Promise<void> {
-    localStorage.removeItem('clientes');
-    await this.setClientes();
-    // Notifica todos os componentes que estão inscritos no observable
   }
 }

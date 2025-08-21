@@ -55,10 +55,9 @@ export class ClienteService {
   }
 
   async restaurarClientes() {
-    this.repository.restaurarClientes();
+    await this.repository.restaurarClientes();
+    await this.getClientes();
     this.clientesRestaurados$.next();
-    this.quantidadeClientesMudou$.next();
-    // Notifica todos os componentes que estão inscritos nos observables
   }
 
   getTotalClientes() {
