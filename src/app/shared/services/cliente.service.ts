@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Cliente } from '../models/cliente.model';
 import { Subject } from 'rxjs';
 import { ClienteRepository } from '../repositories/cliente.repository';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,8 @@ export class ClienteService {
 
   constructor(private repository: ClienteRepository) {}
 
+  public restaurandoClientes$ = new BehaviorSubject<boolean>(false);
+  // Observable para indicar que os clientes estão sendo restaurados
   clientesRestaurados$ = new Subject<void>();
   // Observable para notificar a restauração dos clientes
   quantidadeClientesMudou$ = new Subject<void>();
@@ -55,9 +58,11 @@ export class ClienteService {
   }
 
   async restaurarClientes() {
+    this.restaurandoClientes$.next(true);
     await this.repository.restaurarClientes();
     await this.getClientes();
     this.clientesRestaurados$.next();
+    this.restaurandoClientes$.next(false);
   }
 
   getTotalClientes() {
