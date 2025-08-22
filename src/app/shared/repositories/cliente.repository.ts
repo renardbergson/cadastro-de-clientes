@@ -10,7 +10,7 @@ import {
   getDocs,
   deleteDoc,
 } from '@angular/fire/firestore';
-import { doc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -96,15 +96,16 @@ export class ClienteRepository {
 
   async atualizar(cliente: Cliente): Promise<void> {
     try {
-      const clientes: Cliente[] = await this.getClientes();
-      for (const c of clientes) {
-        if (c.id === cliente.id) {
-          Object.assign(c, cliente);
-          localStorage.setItem('clientes', JSON.stringify(clientes));
-        }
+      if (!cliente.id) {
+        throw new Error('ID do cliente ausente');
       }
+
+      const clienteDocRef = doc(this.firestore, 'clientes', cliente.id);
+      const { id, ...clienteSemId } = cliente; // rest operator
+      await updateDoc(clienteDocRef, clienteSemId);
     } catch (error) {
       console.error('Erro ao tentar atualizar cliente:', error);
+      throw new Error('Erro ao tentar atualizar cliente');
     }
   }
 

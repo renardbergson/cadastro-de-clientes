@@ -5,6 +5,8 @@
         <app-loading mensagem="Restaurando clientes..." />
       } @else if (clienteService.inserindoCliente$ | async) {
         <app-loading mensagem="Inserindo cliente..." />
+      } @else if (clienteService.atualizandoCliente$ | async) {
+        <app-loading mensagem="Atualizando cliente..." />
       } @else if (clienteService.excluindoCliente$ | async) {
         <app-loading mensagem="Excluindo cliente..." />
       } @else {
@@ -18,8 +20,8 @@
           </p>
         }
         <!-- Tela de Cadastro -->
-        @if (obterUrl() === "/cadastro") {
-          <p>Preencha os campos abaixo! *</p>
+        @if (obterUrl().includes("/cadastro")) {
+          <p>{{ personalizarMensagem() }}</p>
         }
       }
     </div>

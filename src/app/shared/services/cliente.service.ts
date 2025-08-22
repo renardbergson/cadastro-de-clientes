@@ -14,6 +14,7 @@ export class ClienteService {
 
   public totalClientes$ = new BehaviorSubject<number>(0);
   public inserindoCliente$ = new BehaviorSubject<boolean>(false);
+  public atualizandoCliente$ = new BehaviorSubject<boolean>(false);
   public excluindoCliente$ = new BehaviorSubject<boolean>(false);
   public restaurandoClientes$ = new BehaviorSubject<boolean>(false);
   clientesRestaurados$ = new Subject<void>();
@@ -41,10 +42,12 @@ export class ClienteService {
   }
 
   async atualizar(cliente: Cliente): Promise<void> {
-    return this.repository.atualizar(cliente);
+    this.atualizandoCliente$.next(true);
+    await this.repository.atualizar(cliente);
+    this.atualizandoCliente$.next(false);
   }
 
-  async salvar(cliente: Cliente) {
+  async salvar(cliente: Cliente): Promise<void> {
     this.inserindoCliente$.next(true);
     this.clientes = await this.repository.salvar(cliente);
     this.totalClientes$.next(this.clientes.length);

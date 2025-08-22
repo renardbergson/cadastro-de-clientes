@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { RouterOutlet, Router } from '@angular/router';
+import { RouterOutlet, Router, ActivatedRoute } from '@angular/router';
 import { ClienteService } from '../../shared/services/cliente.service';
 import { LoadingComponent } from './components/loading/loading.component';
 import { AsyncPipe } from '@angular/common';
@@ -13,6 +13,7 @@ import { AsyncPipe } from '@angular/common';
 export class ConteudoCentralComponent implements OnInit {
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     public clienteService: ClienteService,
   ) {}
 
@@ -20,5 +21,12 @@ export class ConteudoCentralComponent implements OnInit {
 
   obterUrl() {
     return this.router.url;
+  }
+
+  personalizarMensagem() {
+    const id = this.route.snapshot.queryParams['id'];
+    return id
+      ? 'Quais campos deseja atualizar?'
+      : 'Preencha os campos abaixo! *';
   }
 }
