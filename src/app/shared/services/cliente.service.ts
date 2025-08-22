@@ -15,6 +15,7 @@ export class ClienteService {
   public totalClientes$ = new BehaviorSubject<number>(0);
   public inserindoCliente$ = new BehaviorSubject<boolean>(false);
   public atualizandoCliente$ = new BehaviorSubject<boolean>(false);
+  public buscandoCliente$ = new BehaviorSubject<boolean>(false);
   public excluindoCliente$ = new BehaviorSubject<boolean>(false);
   public restaurandoClientes$ = new BehaviorSubject<boolean>(false);
   clientesRestaurados$ = new Subject<void>();
@@ -30,7 +31,10 @@ export class ClienteService {
   }
 
   async buscarPorNome(nome: string): Promise<Cliente[] | []> {
-    return this.repository.buscarPorNome(nome);
+    this.buscandoCliente$.next(true);
+    const resultado = await this.repository.buscarPorNome(nome);
+    this.buscandoCliente$.next(false);
+    return resultado;
   }
 
   async buscarPorEmail(email: string): Promise<Cliente | undefined> {

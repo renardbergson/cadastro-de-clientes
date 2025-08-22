@@ -78,7 +78,6 @@ export class ClienteRepository {
 
   async buscarPorNome(nome: string): Promise<Cliente[] | []> {
     try {
-      console.log('Buscando por nome...');
       const clientes: Cliente[] = await this.getClientes();
       const resultado: Cliente[] | [] = clientes.filter((c) =>
         c.nome?.toLocaleLowerCase().includes(nome.toLocaleLowerCase()),
