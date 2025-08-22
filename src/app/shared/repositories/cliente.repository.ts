@@ -77,11 +77,17 @@ export class ClienteRepository {
   }
 
   async buscarPorNome(nome: string): Promise<Cliente[] | []> {
-    const clientes: Cliente[] = await this.getClientes();
-    const resultado: Cliente[] | [] = clientes.filter((c) =>
-      c.nome?.toLocaleLowerCase().includes(nome.toLocaleLowerCase()),
-    );
-    return resultado;
+    try {
+      console.log('Buscando por nome...');
+      const clientes: Cliente[] = await this.getClientes();
+      const resultado: Cliente[] | [] = clientes.filter((c) =>
+        c.nome?.toLocaleLowerCase().includes(nome.toLocaleLowerCase()),
+      );
+      return resultado;
+    } catch (error) {
+      console.error('Erro ao tentar pesquisar cliente', error);
+      throw new Error('Erro ao tentar pesquisar cliente');
+    }
   }
 
   async buscarPorEmail(email: string): Promise<Cliente | undefined> {

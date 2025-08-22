@@ -33,7 +33,8 @@ export class TabelaComponent implements OnInit {
   listaClientes: Cliente[] = [];
   clienteExcluir: Cliente | null = null;
   nomeBuscar: string = '';
-  timer: number | null = null;
+  deleteTimer: number | null = null;
+  searchTimer: number | null = null;
 
   constructor(
     private clienteService: ClienteService,
@@ -50,15 +51,23 @@ export class TabelaComponent implements OnInit {
   }
 
   async toSearch(): Promise<void> {
-    if (this.nomeBuscar) {
-      const resultado = await this.clienteService.buscarPorNome(
-        this.nomeBuscar,
-      );
-      this.listaClientes = resultado;
-      return;
-    }
+    if (this.searchTimer) clearTimeout(this.searchTimer);
+    try {
+      if (this.nomeBuscar.trim()) {
+        this.searchTimer = setTimeout(async () => {
+          const resultado = await this.clienteService.buscarPorNome(
+            this.nomeBuscar,
+          );
+          this.listaClientes = resultado;
+        }, 500);
+        return;
+      }
 
-    this.listaClientes = await this.clienteService.getClientes();
+      this.listaClientes = await this.clienteService.getClientes();
+    } catch (error) {
+      console.error('Erro ao tentar pesquisar cliente', error);
+      this.feedback.error('Erro ao tentar pesquisar cliente');
+    }
   }
 
   formatarData(dataISO: string) {
@@ -74,10 +83,10 @@ export class TabelaComponent implements OnInit {
   }
 
   toDelete(cliente: Cliente): void {
-    if (this.timer) clearTimeout(this.timer);
+    if (this.deleteTimer) clearTimeout(this.deleteTimer);
 
     this.clienteExcluir = cliente;
-    this.timer = setTimeout(() => {
+    this.deleteTimer = setTimeout(() => {
       this.clienteExcluir = null;
     }, 5000);
   }
