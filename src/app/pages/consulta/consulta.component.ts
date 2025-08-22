@@ -7,7 +7,6 @@ import { ModalComponent } from './components/modal/modal.component';
   selector: 'app-consulta',
   imports: [TabelaComponent, ModalComponent],
   templateUrl: './consulta.component.html',
-  styleUrl: './consulta.component.css',
 })
 export class ConsultaComponent {
   clienteSelecionado: Cliente | null = null;

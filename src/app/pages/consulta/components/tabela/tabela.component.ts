@@ -26,7 +26,6 @@ import { formatDateToBR } from '../../../../shared/utils/date.utils';
     FormsModule,
   ],
   templateUrl: './tabela.component.html',
-  styleUrl: './tabela.component.css',
 })
 export class TabelaComponent implements OnInit {
   @Output() clienteSelecionado = new EventEmitter<Cliente>();

@@ -5,8 +5,5 @@ import { FormularioComponent } from './components/formulario/formulario.componen
   selector: 'app-cadastro',
   imports: [FormularioComponent],
   templateUrl: './cadastro.component.html',
-  styleUrl: './cadastro.component.css'
 })
-export class CadastroComponent {
-
-}
+export class CadastroComponent {}

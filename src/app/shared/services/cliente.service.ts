@@ -12,14 +12,15 @@ export class ClienteService {
 
   constructor(private repository: ClienteRepository) {}
 
+  public totalClientes$ = new BehaviorSubject<number>(0);
   public inserindoCliente$ = new BehaviorSubject<boolean>(false);
+  public excluindoCliente$ = new BehaviorSubject<boolean>(false);
   public restaurandoClientes$ = new BehaviorSubject<boolean>(false);
   clientesRestaurados$ = new Subject<void>();
-  quantidadeClientesMudou$ = new Subject<void>();
 
   async getClientes(): Promise<Cliente[]> {
     this.clientes = await this.repository.getClientes();
-    this.quantidadeClientesMudou$.next();
+    this.totalClientes$.next(this.clientes.length);
     return this.clientes;
   }
 
@@ -46,15 +47,16 @@ export class ClienteService {
   async salvar(cliente: Cliente) {
     this.inserindoCliente$.next(true);
     this.clientes = await this.repository.salvar(cliente);
-    this.quantidadeClientesMudou$.next();
+    this.totalClientes$.next(this.clientes.length);
     this.inserindoCliente$.next(false);
   }
 
   async excluir(cliente: Cliente): Promise<Cliente[]> {
-    const novaListaClientes = await this.repository.excluir(cliente);
-    this.clientes = novaListaClientes;
-    this.quantidadeClientesMudou$.next();
-    return novaListaClientes;
+    this.excluindoCliente$.next(true);
+    this.clientes = await this.repository.excluir(cliente);
+    this.totalClientes$.next(this.clientes.length);
+    this.excluindoCliente$.next(false);
+    return this.clientes;
   }
 
   async restaurarClientes() {
@@ -63,9 +65,5 @@ export class ClienteService {
     await this.getClientes();
     this.clientesRestaurados$.next();
     this.restaurandoClientes$.next(false);
-  }
-
-  getTotalClientes() {
-    return this.clientes.length;
   }
 }

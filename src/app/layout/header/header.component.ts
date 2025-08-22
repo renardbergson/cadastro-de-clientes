@@ -21,7 +21,6 @@ import { DrawerComponent } from './components/drawer/drawer.component';
     DrawerComponent,
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
 })
 export class HeaderComponent {
   isDrawerVisible: boolean = false;

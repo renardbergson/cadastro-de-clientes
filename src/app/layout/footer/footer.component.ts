@@ -3,10 +3,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 @Component({
   selector: 'app-footer',
-  imports: [ NzLayoutModule ],
+  imports: [NzLayoutModule],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
 })
-export class FooterComponent {
-
-}
+export class FooterComponent {}

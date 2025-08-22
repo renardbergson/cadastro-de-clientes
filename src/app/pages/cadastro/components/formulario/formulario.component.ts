@@ -36,7 +36,6 @@ import {
   ],
   providers: [provideNgxMask()],
   templateUrl: './formulario.component.html',
-  styleUrl: './formulario.component.css',
 })
 export class FormularioComponent implements OnInit {
   formCadastro!: FormGroup; // será inicializado no ngOnInit

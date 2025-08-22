@@ -19,7 +19,6 @@ import { FooterComponent } from './layout/footer/footer.component';
     FooterComponent,
   ],
   templateUrl: './app.html',
-  styleUrl: './app.css',
 })
 export class App {
   protected title = 'cadastro-de-clientes';

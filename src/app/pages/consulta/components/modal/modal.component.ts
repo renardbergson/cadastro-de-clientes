@@ -8,7 +8,6 @@ import { Cliente } from '../../../../shared/models/cliente.model';
   selector: 'app-modal',
   imports: [NzButtonModule, NzModalModule],
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css'],
 })
 export class ModalComponent {
   @Input() clienteMostrar: Cliente | null = null;
