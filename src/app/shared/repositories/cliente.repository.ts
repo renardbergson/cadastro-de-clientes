@@ -16,8 +16,6 @@ import { doc, updateDoc } from 'firebase/firestore';
   providedIn: 'root',
 })
 export class ClienteRepository {
-  private clientes: Cliente[] = [];
-
   constructor(
     private http: HttpClient,
     private firestore: Firestore,
@@ -57,8 +55,7 @@ export class ClienteRepository {
       const firebaseClientes = await firstValueFrom(
         collectionData(clientesRef, { idField: 'id' }),
       );
-      this.clientes = firebaseClientes;
-      return this.clientes;
+      return firebaseClientes;
     } catch (error) {
       console.error(
         'Erro ao tentar obter os clientes do banco de dados!',

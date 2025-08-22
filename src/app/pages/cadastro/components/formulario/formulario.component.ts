@@ -79,7 +79,9 @@ export class FormularioComponent implements OnInit {
           if (clienteEditar) {
             this.atualizandoCliente = true;
             Object.assign(this.cliente, clienteEditar);
-            this.listarMunicipios(this.cliente.estado!);
+
+            await this.listarMunicipios(this.cliente.estado!);
+
             this.cliente.dataNascimento = formatDateToBR(
               this.cliente.dataNascimento!,
             );
@@ -107,15 +109,19 @@ export class FormularioComponent implements OnInit {
     });
   }
 
-  listarMunicipios(uf: string) {
-    this.brasilApi.listarMunicipios(uf).subscribe({
-      next: (listaMunicipios) => {
-        this.municipios = listaMunicipios;
-      },
-      error: (error) => {
-        console.error('Erro ao tentar listar municípios:', error);
-        this.feedback.error('Não foi possível listar os municípios');
-      },
+  listarMunicipios(uf: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.brasilApi.listarMunicipios(uf).subscribe({
+        next: (listaMunicipios) => {
+          this.municipios = listaMunicipios;
+          resolve();
+        },
+        error: (error) => {
+          console.error('Erro ao tentar listar municípios:', error);
+          this.feedback.error('Não foi possível listar os municípios');
+          reject(error);
+        },
+      });
     });
   }
 

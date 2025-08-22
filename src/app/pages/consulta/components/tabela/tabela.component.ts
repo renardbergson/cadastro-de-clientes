@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { FormsModule } from '@angular/forms';
 import { formatDateToBR } from '../../../../shared/utils/date.utils';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-tabela',
@@ -40,6 +41,7 @@ export class TabelaComponent implements OnInit {
     private clienteService: ClienteService,
     private router: Router,
     private feedback: NzMessageService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -47,6 +49,7 @@ export class TabelaComponent implements OnInit {
     this.clienteService.clientesRestaurados$.subscribe(async () => {
       // Esta função é chamada toda vez que o observable é notificado
       this.listaClientes = await this.clienteService.getClientes();
+      this.cdr.detectChanges(); // "Ei Angular, verifica se algo mudou"
     });
   }
 

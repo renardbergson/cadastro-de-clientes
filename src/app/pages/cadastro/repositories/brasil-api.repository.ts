@@ -26,7 +26,7 @@ export class BrasilApiRepository {
   }
 
   listarMunicipios(uf: string): Observable<Municipio[]> {
-    const endpoint = `ibge/municipios/v1/${uf}?providers=dados-abertos-br,gov,wikipedia`;
+    const endpoint = `ibge/municipios/v1/${uf}?providers=gov`;
     return this.http.get<Municipio[]>(this.urlBase + endpoint).pipe(
       map((data) => {
         if (data) {
