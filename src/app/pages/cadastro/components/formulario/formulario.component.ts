@@ -77,6 +77,7 @@ export class FormularioComponent implements OnInit {
           const clienteEditar: Cliente | undefined =
             await this.clienteService.buscarPorID(id);
           if (clienteEditar) {
+            this.clienteService.clienteEncontrado$.next(true);
             this.atualizandoCliente = true;
             Object.assign(this.cliente, clienteEditar);
 
@@ -86,16 +87,17 @@ export class FormularioComponent implements OnInit {
               this.cliente.dataNascimento!,
             );
             this.formCadastro.patchValue(this.cliente);
-
-            setTimeout(() => {
-              this.clienteService.buscandoClientePorID$.next(false);
-            }, 500);
           } else {
+            this.clienteService.clienteEncontrado$.next(false);
             throw new Error('Erro ao carregar dados do cliente');
           }
         } catch (error) {
           console.error('Erro ao buscar cliente:', error);
           this.feedback.error('Erro ao carregar dados do cliente');
+        } finally {
+          setTimeout(() => {
+            this.clienteService.buscandoClientePorID$.next(false);
+          }, 500);
         }
       }
     });

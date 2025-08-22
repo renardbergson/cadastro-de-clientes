@@ -17,6 +17,7 @@ export class ClienteService {
   public atualizandoCliente$ = new BehaviorSubject<boolean>(false);
   public buscandoClientePorNome$ = new BehaviorSubject<boolean>(false);
   public buscandoClientePorID$ = new BehaviorSubject<boolean>(false);
+  public clienteEncontrado$ = new BehaviorSubject<boolean>(false);
   public excluindoCliente$ = new BehaviorSubject<boolean>(false);
   public restaurandoClientes$ = new BehaviorSubject<boolean>(false);
   clientesRestaurados$ = new Subject<void>();
@@ -28,7 +29,8 @@ export class ClienteService {
   }
 
   async buscarPorID(id: string): Promise<Cliente | undefined> {
-    // O settimeOut está aqui para impedir que várias mudanças de estado sejam executadas ao mesmo tempo, resultando em erros
+    // O settimeOut está aqui para impedir que várias mudanças de
+    // estado sejam executadas ao mesmo tempo, resultando em erros
     setTimeout(() => {
       this.buscandoClientePorID$.next(true); // ← Executa no PRÓXIMO ciclo
     }, 0);

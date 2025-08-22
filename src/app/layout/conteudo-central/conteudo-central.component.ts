@@ -25,8 +25,15 @@ export class ConteudoCentralComponent implements OnInit {
 
   personalizarMensagem() {
     const id = this.route.snapshot.queryParams['id'];
-    return id
-      ? 'Quais campos deseja atualizar?'
-      : 'Preencha os campos abaixo! *';
+
+    if (id && !this.clienteService.clienteEncontrado$.value) {
+      return 'Cliente não encontrado!';
+    }
+
+    if (id && this.clienteService.clienteEncontrado$.value) {
+      return 'Quais campos deseja atualizar?';
+    } else {
+      return 'Preencha os campos abaixo! *';
+    }
   }
 }
