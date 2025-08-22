@@ -86,6 +86,10 @@ export class FormularioComponent implements OnInit {
               this.cliente.dataNascimento!,
             );
             this.formCadastro.patchValue(this.cliente);
+
+            setTimeout(() => {
+              this.clienteService.buscandoClientePorID$.next(false);
+            }, 500);
           } else {
             throw new Error('Erro ao carregar dados do cliente');
           }

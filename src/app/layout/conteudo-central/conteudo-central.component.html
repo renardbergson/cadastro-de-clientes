@@ -5,8 +5,10 @@
         <app-loading mensagem="Restaurando clientes..." />
       } @else if (clienteService.inserindoCliente$ | async) {
         <app-loading mensagem="Inserindo cliente..." />
-      } @else if (clienteService.buscandoCliente$ | async) {
+      } @else if (clienteService.buscandoClientePorNome$ | async) {
         <app-loading mensagem="Buscando cliente..." />
+      } @else if (clienteService.buscandoClientePorID$ | async) {
+        <app-loading mensagem="Recuperando dados do cliente..." />
       } @else if (clienteService.atualizandoCliente$ | async) {
         <app-loading mensagem="Atualizando cliente..." />
       } @else if (clienteService.excluindoCliente$ | async) {
