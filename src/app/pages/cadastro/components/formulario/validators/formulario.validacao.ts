@@ -51,8 +51,12 @@ export function verificarSeCpfExiste(
 }
 
 export function validarDataNascimento(control: AbstractControl) {
-  // Garante que só há caracteres numéricos
-  const data = control.value.replace(/\D/g, '');
+  const data = control.value;
+
+  // Verificar se o valor existe
+  if (!data) {
+    return { dataNascimentoInvalida: true };
+  }
 
   // Extrair dia, mes e ano e converter para número
   const dia = Number(data.slice(0, 2)); // "01" => 1
