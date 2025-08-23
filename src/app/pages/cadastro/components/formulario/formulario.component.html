@@ -141,22 +141,29 @@
       formCadastro.get("dataNascimento")?.invalid &&
       formCadastro.get("dataNascimento")?.touched
     ) {
-      <span
-        *ngIf="formCadastro.get('dataNascimento')?.errors?.['required']"
-        class="absolute left-0 top-full mt-[2px] text-[#ff4d4f]"
-      >
-        A data de nascimento é obrigatória!
-      </span>
-
-      <span
-        *ngIf="
-          formCadastro.get('dataNascimento')?.errors?.['minlength'] ||
-          formCadastro.get('dataNascimento')?.errors?.['maxlength']
-        "
-        class="absolute left-0 top-full mt-[2px] text-[#ff4d4f]"
-      >
-        A data de nascimento deve conter 8 dígitos!
-      </span>
+      <!-- 1: Campo obrigatório -->
+      @if (formCadastro.get("dataNascimento")?.errors?.["required"]) {
+        <span class="absolute left-0 top-full mt-[2px] text-[#ff4d4f]">
+          A data de nascimento é obrigatória!
+        </span>
+      }
+      <!-- 2: Tamanho -->
+      @else if (
+        formCadastro.get("dataNascimento")?.errors?.["minlength"] ||
+        formCadastro.get("dataNascimento")?.errors?.["maxlength"]
+      ) {
+        <span class="absolute left-0 top-full mt-[2px] text-[#ff4d4f]">
+          A data de nascimento deve conter 8 dígitos!
+        </span>
+      }
+      <!-- 3: Data inválida -->
+      @else if (
+        formCadastro.get("dataNascimento")?.errors?.["dataNascimentoInvalida"]
+      ) {
+        <span class="absolute left-0 top-full mt-[2px] text-[#ff4d4f]">
+          A data de nascimento informada não é válida!
+        </span>
+      }
     }
   </div>
 

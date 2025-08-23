@@ -9,8 +9,9 @@ import {
   collectionData,
   getDocs,
   deleteDoc,
+  doc,
 } from '@angular/fire/firestore';
-import { doc, updateDoc } from 'firebase/firestore';
+import { updateDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,7 @@ export class ClienteRepository {
 
       // 2. Exclui cada documento da coleção
       for (const document of allDocuments.docs) {
-        await deleteDoc(doc(this.firestore, 'clientes', document.id));
+        await deleteDoc(document.ref);
       }
 
       // 3. Carrega os dados de clientes.json (local)
@@ -55,7 +56,7 @@ export class ClienteRepository {
       const firebaseClientes = await firstValueFrom(
         collectionData(clientesRef, { idField: 'id' }),
       );
-      return firebaseClientes;
+      return firebaseClientes as Cliente[];
     } catch (error) {
       console.error(
         'Erro ao tentar obter os clientes do banco de dados!',

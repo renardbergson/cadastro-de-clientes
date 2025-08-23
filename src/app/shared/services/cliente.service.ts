@@ -40,10 +40,13 @@ export class ClienteService {
   }
 
   async buscarPorNome(nome: string): Promise<Cliente[] | []> {
-    this.buscandoClientePorNome$.next(true);
-    const resultado = await this.repository.buscarPorNome(nome);
-    this.buscandoClientePorNome$.next(false);
-    return resultado;
+    try {
+      this.buscandoClientePorNome$.next(true);
+      const resultado = await this.repository.buscarPorNome(nome);
+      return resultado;
+    } finally {
+      this.buscandoClientePorNome$.next(false);
+    }
   }
 
   async buscarPorEmail(email: string): Promise<Cliente | undefined> {
@@ -55,31 +58,43 @@ export class ClienteService {
   }
 
   async atualizar(cliente: Cliente): Promise<void> {
-    this.atualizandoCliente$.next(true);
-    await this.repository.atualizar(cliente);
-    this.atualizandoCliente$.next(false);
+    try {
+      this.atualizandoCliente$.next(true);
+      await this.repository.atualizar(cliente);
+    } finally {
+      this.atualizandoCliente$.next(false);
+    }
   }
 
   async salvar(cliente: Cliente): Promise<void> {
-    this.inserindoCliente$.next(true);
-    this.clientes = await this.repository.salvar(cliente);
-    this.totalClientes$.next(this.clientes.length);
-    this.inserindoCliente$.next(false);
+    try {
+      this.inserindoCliente$.next(true);
+      this.clientes = await this.repository.salvar(cliente);
+      this.totalClientes$.next(this.clientes.length);
+    } finally {
+      this.inserindoCliente$.next(false);
+    }
   }
 
   async excluir(cliente: Cliente): Promise<Cliente[]> {
-    this.excluindoCliente$.next(true);
-    this.clientes = await this.repository.excluir(cliente);
-    this.totalClientes$.next(this.clientes.length);
-    this.excluindoCliente$.next(false);
-    return this.clientes;
+    try {
+      this.excluindoCliente$.next(true);
+      this.clientes = await this.repository.excluir(cliente);
+      this.totalClientes$.next(this.clientes.length);
+      return this.clientes;
+    } finally {
+      this.excluindoCliente$.next(false);
+    }
   }
 
   async restaurarClientes() {
-    this.restaurandoClientes$.next(true);
-    await this.repository.restaurarClientes();
-    await this.getClientes();
-    this.clientesRestaurados$.next();
-    this.restaurandoClientes$.next(false);
+    try {
+      this.restaurandoClientes$.next(true);
+      await this.repository.restaurarClientes();
+      await this.getClientes();
+      this.clientesRestaurados$.next();
+    } finally {
+      this.restaurandoClientes$.next(false);
+    }
   }
 }

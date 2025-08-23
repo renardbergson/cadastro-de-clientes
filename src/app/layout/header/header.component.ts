@@ -16,7 +16,6 @@ import { DrawerComponent } from './components/drawer/drawer.component';
     RouterLink,
     RouterModule,
     NzIconModule,
-    NzIconModule,
     NzButtonModule,
     DrawerComponent,
   ],

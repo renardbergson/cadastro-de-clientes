@@ -11,7 +11,12 @@ export const camposBase = {
   ],
   dataNascimento: [
     '',
-    [Validators.required, Validators.minLength(8), Validators.maxLength(8)],
+    [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(8),
+      validarDataNascimento,
+    ],
   ],
   estado: ['', [Validators.required]],
   municipio: ['', [Validators.required]],
@@ -43,4 +48,32 @@ export function verificarSeCpfExiste(
       return existe ? { cpfJaExiste: true } : null;
     }
   };
+}
+
+export function validarDataNascimento(control: AbstractControl) {
+  // Garante que só há caracteres numéricos
+  const data = control.value.replace(/\D/g, '');
+
+  // Extrair dia, mes e ano e converter para número
+  const dia = Number(data.slice(0, 2)); // "01" => 1
+  const mes = Number(data.slice(2, 4)); // "08" => 8
+  const ano = Number(data.slice(4, 8)); // "1992" => 1992
+
+  // Verificar se há zeros (principal problema)
+  if (dia === 0 || mes === 0 || ano === 0) {
+    return { dataNascimentoInvalida: true };
+  }
+
+  // Verificar se a data é válida
+  const dataObj = new Date(ano, mes - 1, dia);
+  if (
+    dataObj.getDate() !== dia ||
+    dataObj.getMonth() !== mes - 1 ||
+    dataObj.getFullYear() !== ano
+  ) {
+    return { dataNascimentoInvalida: true };
+  }
+
+  // Data válida
+  return null;
 }
