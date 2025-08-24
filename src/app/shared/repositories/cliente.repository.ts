@@ -35,9 +35,9 @@ export class ClienteRepository {
         await deleteDoc(document.ref);
       }
 
-      // 3. Carrega os dados de clientes.json (local)
+      // 3. Carrega os dados de meu endpoint
       const clientes: Cliente[] = await firstValueFrom(
-        this.http.get<Cliente[]>('assets/data/clientes.json'),
+        this.http.get<Cliente[]>('/api/clientes'),
       );
 
       // 4. Popula a coleção com os dados de clientes.json
