@@ -9,7 +9,7 @@ Acesse a aplicação aqui:
 
 ## 📸 Preview
 
-> _Esta seção será atualizada com um vídeo ou GIF da aplicação em funcionamento._
+https://github.com/user-attachments/assets/29e29c58-4c5f-43c6-854e-dfebd693468e
 
 ## 📚 O que você encontrará aqui
 
