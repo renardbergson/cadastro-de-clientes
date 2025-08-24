@@ -1,6 +1,6 @@
 # 👥 Cadastro de Clientes
 
-Este é meu segundo projeto com Angular! Uma aplicação completa de cadastro de clientes que demonstra conceitos avançados do framework, incluindo Reactive Forms, Observables, integração com APIs externas e muito mais.
+Este é meu segundo projeto com Angular! Uma aplicação completa de cadastro de clientes que demonstra conceitos avançados do framework, incluindo Reactive Forms, Observables, integração com Firebase, APIs externas e muito mais.
 
 ## 🚀 Live Demo
 
@@ -15,22 +15,21 @@ Acesse a aplicação aqui:
 
 ### 🏗️ **Arquitetura e Estrutura**
 
-- **Componentes Reutilizáveis:** Estrutura modular com componentes separados para formulário, tabela, header e footer
+- **Componentes Reutilizáveis:** Estrutura standalone com componentes separados para formulário, tabela, header, footer e drawer
 - **Serviços Especializados:** Separação clara de responsabilidades com serviços para clientes e integração com APIs
+- **Repositories Pattern:** Camada de abstração para operações de dados com Firebase
 - **Models Tipados:** Interfaces TypeScript bem definidas para Cliente, Estado e Município
 - **Roteamento:** Navegação entre páginas com Angular Router
 
 ### 📝 **Formulários Avançados**
 
 - **Reactive Forms:** Implementação de formulários reativos ao invés de template-driven forms
-- **Validações Assíncronas:** Verificação em tempo real de email e CPF únicos
-- **Debounce:** Implementação de debounce (espera 2 segundos) antes de validar campos, evitando chamadas desnecessárias ao servidor
+- **Debounce:** Implementação de debounce (espera 500ms) antes de validar campos, evitando chamadas desnecessárias ao servidor
 - **Máscaras:** Aplicação de máscaras nos campos de CPF e data de nascimento
 - **Validações Customizadas:** Validações síncronas e assíncronas personalizadas
 
 ### 🔄 **Observables e Reatividade**
 
-- **Observables Próprios:** Criação e gerenciamento de observables customizados (`Subject`)
 - **Padrão Observer:** Implementação do padrão Observer para comunicação entre componentes
 - **Gerenciamento de Estado:** Controle de estado reativo com observables para notificações de mudanças
 - **Separação de Responsabilidades:** Feedback apenas no iniciador da ação, atualização de dados nos consumidores
@@ -38,21 +37,31 @@ Acesse a aplicação aqui:
 ### 🌐 **Integração com APIs**
 
 - **Brasil API:** Consumo da API pública para listar estados e municípios
-- **HTTP Client:** Uso do HttpClient do Angular para requisições HTTP
+- **API Própria:** Endpoint `/api/clientes` para restaurar dados base dos clientes
 - **Tratamento de Erros:** Implementação robusta de tratamento de erros nas chamadas de API
-- **Type Guards:** Verificação de tipos para garantir integridade dos dados recebidos
 
-### 💾 **Persistência de Dados**
+### 🔥 **Firebase Integration**
 
-- **LocalStorage:** Armazenamento local dos dados dos clientes
-- **CRUD Completo:** Operações de Create, Read, Update e Delete
-- **Restauração de Dados:** Funcionalidade para restaurar dados originais
+- **Firestore Database:** Armazenamento em nuvem dos dados dos clientes
+- **CRUD Completo:** Operações de Create, Read, Update e Delete no Firestore
+- **Restauração de Dados:** Funcionalidade para restaurar dados originais via API própria
 - **Validação de Dados:** Verificação de integridade dos dados armazenados
+
+### 📱 **Design Responsivo**
+
+- **Mobile-First:** Design otimizado para dispositivos móveis
+- **Tailwind CSS:** Framework CSS utilitário para estilização responsiva
+- **Breakpoints:** Adaptação automática para diferentes tamanhos de tela
+- **Drawer Navigation:** Menu lateral para dispositivos móveis
+- **Tabela Responsiva:** Colunas que se adaptam ao tamanho da tela
 
 ### 🎨 **Interface e UX**
 
-- **ng-zorro-antd:** Framework de UI moderno e acessível
-- **Feedback Visual:** Mensagens de sucesso e erro para todas as operações
+- **ng-zorro-antd:** Framework de UI moderno
+- **Feedback Visual Personalizado:** Estados de loading específicos para cada operação
+- **Mensagens Contextuais:** Feedback específico para cada ação do usuário
+- **Animações:** Transições suaves entre estados
+- **Ícones Intuitivos:** Interface rica em ícones para melhor usabilidade
 
 ### 🔍 **Funcionalidades Implementadas**
 
@@ -63,6 +72,7 @@ Acesse a aplicação aqui:
 - ✅ Integração com API de estados e municípios
 - ✅ Máscaras nos campos (CPF, data)
 - ✅ Debounce nas validações assíncronas
+- ✅ Persistência no Firebase Firestore
 
 #### **Consulta e Listagem**
 
@@ -70,6 +80,7 @@ Acesse a aplicação aqui:
 - ✅ Busca por nome em tempo real
 - ✅ Formatação de datas para exibição
 - ✅ Ações de editar e excluir
+- ✅ Design responsivo com colunas adaptativas
 
 #### **Edição de Clientes**
 
@@ -86,18 +97,30 @@ Acesse a aplicação aqui:
 
 #### **Gerenciamento de Dados**
 
-- ✅ Restauração dos dados originais
+- ✅ Restauração dos dados originais via API
 - ✅ Controle de quantidade de clientes
 - ✅ Notificações de mudanças via observables
+- ✅ Estados de loading específicos
+
+#### **Navegação Responsiva**
+
+- ✅ Header adaptativo com menu hambúrguer
+- ✅ Drawer lateral para dispositivos móveis
+- ✅ Menu horizontal para desktop
+- ✅ Navegação fluida entre páginas
 
 ## 🛠️ Tecnologias Utilizadas
 
 - **Angular 19** - Framework principal
-- **TypeScript** - Linguagem de programação
+- **TypeScript** - Tipagem de dados
+- **Firebase/Firestore** - Banco de dados em nuvem
 - **ng-zorro-antd** - Framework de UI
+- **Tailwind CSS** - Framework CSS utilitário
 - **ngx-mask** - Biblioteca para máscaras
 - **RxJS** - Biblioteca para programação reativa
 - **Brasil API** - API pública para dados geográficos
+- **Vercel** - Plataforma de deploy e hosting
+- **UUID** - Geração de IDs únicos
 
 ## 🔧 Conceitos Avançados Demonstrados
 
@@ -110,20 +133,15 @@ Este projeto utiliza **Reactive Forms**, que oferecem:
 - Facilidade para implementar validações customizadas
 - Melhor testabilidade
 
-### **Observables Próprios vs Nativos**
-
-- **Observables Próprios:** Criados com `Subject` para comunicação entre componentes
-- **Observables Nativos:** Utilizados do RxJS para operações HTTP e eventos
-
 ### **Debounce Implementation**
 
 Implementação de debounce para evitar chamadas desnecessárias:
 
 ```typescript
 private debounceTimer?: number;
-private readonly debounceDelay: number = 2000;
+private readonly debounceDelay: number = 500;
 
-// Aguarda 2 segundos antes de validar
+// Aguarda 500ms antes de validar
 ```
 
 ### **Padrão Observer**
@@ -132,6 +150,28 @@ Separação clara entre quem inicia ações e quem reage:
 
 - **Iniciador:** Exibe feedback
 - **Consumidores:** Apenas atualizam dados
+
+### **Repository Pattern**
+
+Abstração da camada de dados:
+
+```typescript
+// Repository abstrai as operações do Firebase
+export class ClienteRepository {
+  async getClientes(): Promise<Cliente[]>;
+  async salvar(cliente: Cliente): Promise<Cliente[]>;
+  async atualizar(cliente: Cliente): Promise<void>;
+  async excluir(cliente: Cliente): Promise<Cliente[]>;
+}
+```
+
+### **Design Responsivo**
+
+Implementação de breakpoints e componentes adaptativos:
+
+- **Mobile:** Drawer navigation, colunas ocultas
+- **Tablet:** Layout intermediário
+- **Desktop:** Menu horizontal, todas as colunas visíveis
 
 ## 🚀 Como Executar
 
@@ -151,7 +191,7 @@ npm install
 3. **Execute o projeto:**
 
 ```bash
-npm start
+ng serve
 ```
 
 4. **Acesse no navegador:**
@@ -165,14 +205,20 @@ http://localhost:4200
 ```
 src/
 ├── app/
-│   ├── layout/           # Componentes de layout
+│   ├── layout/           # Componentes de layout (header, footer, drawer)
+│   │   ├── header/       # Header responsivo com navegação
+│   │   ├── footer/       # Footer da aplicação
+│   │   └── conteudo-central/ # Container principal
 │   ├── pages/           # Páginas da aplicação
+│   │   ├── cadastro/    # Página de cadastro
+│   │   └── consulta/    # Página de consulta
 │   └── shared/          # Componentes e serviços compartilhados
-│       ├── components/  # Componentes reutilizáveis
 │       ├── models/      # Interfaces e tipos
+│       ├── repositories/ # Camada de acesso a dados
 │       ├── services/    # Serviços da aplicação
 │       └── utils/       # Utilitários
-└── assets/              # Recursos estáticos
+├── api/                 # API própria (Vercel Functions)
+└── environments/        # Configurações de ambiente
 ```
 
 ## 🎯 Diferenças do Primeiro Projeto
@@ -185,8 +231,41 @@ Comparado ao [Shopping List](https://github.com/renardbergson/shopping-list), es
 | **Observables**  | Básicos             | Próprios + Nativos     |
 | **APIs**         | Não utilizadas      | Integração completa    |
 | **Validações**   | Simples             | Assíncronas + Debounce |
-| **Persistência** | LocalStorage básico | CRUD completo          |
-| **Arquitetura**  | Componente único    | Múltiplos componentes  |
+| **Persistência** | LocalStorage básico | Firebase Firestore     |
+| **Arquitetura**  | Mais básica         | Múltiplos componentes  |
+| **Design**       | Básico              | Responsivo + Moderno   |
+| **Deploy**       | Vercel              | Vercel + API Functions |
+
+## 🔥 Principais Melhorias Implementadas
+
+### **Migração para Firebase**
+
+- Substituição do localStorage por Firestore
+- Persistência em nuvem com sincronização em tempo real
+
+### **Design Responsivo**
+
+- Implementação de Tailwind CSS
+- Breakpoints para diferentes dispositivos
+- Componentes adaptativos (drawer, tabela responsiva)
+
+### **API Própria**
+
+- Endpoint `/api/clientes` para restaurar dados base
+- Deploy na Vercel com serverless functions
+- Proxy configuration para desenvolvimento local
+
+### **Feedback Personalizado**
+
+- Estados de loading específicos para cada operação
+- Mensagens contextuais e informativas
+- Componente de loading reutilizável
+
+### **Navegação Melhorada**
+
+- Header responsivo com menu hambúrguer
+- Drawer lateral para dispositivos móveis
+- Navegação fluida e intuitiva
 
 ## 👨‍💻 Sobre o Desenvolvedor
 
